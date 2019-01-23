@@ -65,6 +65,7 @@ namespace ClassTaskLibrary
 
         private void PriorityGroupBox_Enter(object sender, EventArgs e)
         {
+            
                 this.PriorityChanged();
         }
 
