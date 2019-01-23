@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClassTaskLibrary;
+using FlynnAssignment1.View.Output;
 
 namespace FlynnAssignment1
 {
@@ -14,20 +16,24 @@ namespace FlynnAssignment1
     {
         public Form1()
         {
-            InitializeComponent();
-            Text = "Homework Tracker by Kevin Flynn";
+            this.InitializeComponent();
+            this.Text = "Homework Tracker by Kevin Flynn";
+            this.Course1Info.CoursePrioritySelected += this.processPriority;
+            this.ClassInformation.Text = PriorityOutput.BuildPriorityOutput(null);
+            
+
+
         }
 
-        private void userControl11_Load(object sender, EventArgs e)
+
+        private void processPriority(object sender, CourseInfoEventArgs e)
+        {    
+                this.ClassInformation.Text += "Success";
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (this.Course1Info.Priority == 3)
-            {
 
-            }
         }
-
-     
-
-
     }
 }

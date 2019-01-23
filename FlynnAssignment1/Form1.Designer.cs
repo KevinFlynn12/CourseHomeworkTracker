@@ -32,7 +32,7 @@
             this.Course1Info = new ClassTaskLibrary.CourseInfo();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.ClassInformation = new System.Windows.Forms.TextBox();
             this.CHEM1212 = new System.Windows.Forms.TabPage();
             this.Course3Info = new ClassTaskLibrary.CourseInfo();
             this.ENGL1102 = new System.Windows.Forms.TabPage();
@@ -58,12 +58,13 @@
             // 
             // Course1Info
             // 
+            this.Course1Info.HighPrioritySelected = false;
             this.Course1Info.Location = new System.Drawing.Point(10, 6);
+            this.Course1Info.LowPrioritySelected = false;
+            this.Course1Info.MediumPrioritySelected = false;
             this.Course1Info.Name = "Course1Info";
-            this.Course1Info.Priority = 0;
             this.Course1Info.Size = new System.Drawing.Size(662, 275);
             this.Course1Info.TabIndex = 0;
-            this.Course1Info.Load += new System.EventHandler(this.userControl11_Load);
             // 
             // label1
             // 
@@ -83,13 +84,14 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Task To Complete";
             // 
-            // textBox1
+            // ClassInformation
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 401);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(668, 240);
-            this.textBox1.TabIndex = 3;
+            this.ClassInformation.Location = new System.Drawing.Point(12, 401);
+            this.ClassInformation.Multiline = true;
+            this.ClassInformation.Name = "ClassInformation";
+            this.ClassInformation.Size = new System.Drawing.Size(668, 240);
+            this.ClassInformation.TabIndex = 3;
+            this.ClassInformation.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // CHEM1212
             // 
@@ -104,9 +106,11 @@
             // 
             // Course3Info
             // 
+            this.Course3Info.HighPrioritySelected = false;
             this.Course3Info.Location = new System.Drawing.Point(3, 3);
+            this.Course3Info.LowPrioritySelected = false;
+            this.Course3Info.MediumPrioritySelected = false;
             this.Course3Info.Name = "Course3Info";
-            this.Course3Info.Priority = 0;
             this.Course3Info.Size = new System.Drawing.Size(659, 278);
             this.Course3Info.TabIndex = 0;
             // 
@@ -123,9 +127,11 @@
             // 
             // Course2Info
             // 
+            this.Course2Info.HighPrioritySelected = false;
             this.Course2Info.Location = new System.Drawing.Point(7, 7);
+            this.Course2Info.LowPrioritySelected = false;
+            this.Course2Info.MediumPrioritySelected = false;
             this.Course2Info.Name = "Course2Info";
-            this.Course2Info.Priority = 0;
             this.Course2Info.Size = new System.Drawing.Size(655, 277);
             this.Course2Info.TabIndex = 0;
             // 
@@ -145,7 +151,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(702, 653);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.ClassInformation);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ClassesTabControl);
@@ -163,7 +169,7 @@
         #endregion
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox ClassInformation;
         private System.Windows.Forms.TabPage CHEM1212;
         private ClassTaskLibrary.CourseInfo Course3Info;
         private System.Windows.Forms.TabPage ENGL1102;

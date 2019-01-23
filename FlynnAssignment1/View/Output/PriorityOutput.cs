@@ -26,7 +26,7 @@ namespace FlynnAssignment1.View.Output
         private static string buildHighPriorityOutput(ICollection<Course> lowPriorityClasses)
         {
             var output = "High Priority Classes" + Environment.NewLine;
-            output += BorderLine;
+            output += BorderLine + Environment.NewLine;
 
             return output;
         }
@@ -34,7 +34,7 @@ namespace FlynnAssignment1.View.Output
         private static string buildMediumPriorityOutput(ICollection<Course> lowPriorityClasses)
         {
             var output = "Medium Priority Classes" + Environment.NewLine;
-            output += BorderLine;
+            output += BorderLine + Environment.NewLine;
 
             return output;
         }
@@ -43,7 +43,7 @@ namespace FlynnAssignment1.View.Output
         private static string buildLowPriorityOutput(ICollection<Course> lowPriorityClasses)
         {
             var output = "Low Priority Classes" + Environment.NewLine;
-            output += BorderLine;
+            output += BorderLine + Environment.NewLine;
 
             return output;
         } 
