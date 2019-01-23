@@ -5,7 +5,7 @@ using FlynnAssignment1.Helper;
 
 namespace FlynnAssignment1.Model
 {
-    public class Classes : ICollection<Course>
+    public class AllClasses : ICollection<Course>
     {
         #region Data members
 
@@ -23,7 +23,7 @@ namespace FlynnAssignment1.Model
 
         #region Constructors
 
-        public Classes()
+        public AllClasses()
         {
             this.classes = new List<Course>();
         }

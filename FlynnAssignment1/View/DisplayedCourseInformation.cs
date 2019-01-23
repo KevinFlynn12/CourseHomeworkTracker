@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClassTaskLibrary;
+using FlynnAssignment1.Controller;
 using FlynnAssignment1.View.Output;
 
 namespace FlynnAssignment1
@@ -16,20 +17,34 @@ namespace FlynnAssignment1
     {
         private Color SelectedColor;
 
+        private ClassesInformationController controller;
+
         public Form1()
         {
 
             this.InitializeComponent();
             this.Text = "Homework Tracker by Kevin Flynn";
-            this.Course1Info.CoursePrioritySelected += this.processPriority;
+            this.controller = new ClassesInformationController();
+            this.Course1Info.ChangeHasOccured += this.processPriority;
             this.ClassInformation.Text = PriorityOutput.BuildPriorityOutput(null);
 
             this.ClassesTabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
             this.ClassesTabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
             this.SelectedColor = default(Color);
 
-
         }
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
         {

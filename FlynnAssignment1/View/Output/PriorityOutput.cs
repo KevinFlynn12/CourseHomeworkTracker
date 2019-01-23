@@ -34,6 +34,7 @@ namespace FlynnAssignment1.View.Output
         private static string buildMediumPriorityOutput(ICollection<Course> lowPriorityClasses)
         {
             var output = "Medium Priority Classes" + Environment.NewLine;
+
             output += BorderLine + Environment.NewLine;
 
             return output;

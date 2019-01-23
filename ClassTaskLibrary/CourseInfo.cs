@@ -11,9 +11,18 @@ using System.Windows.Forms;
 
 namespace ClassTaskLibrary
 {
+    public enum Priority
+    {
+        High = 3,
+        Medium = 2,
+        Low = 1
+
+    }
+
+
     public class CourseInfoEventArgs : EventArgs
     {
-        public int Priority { get; set; }
+        public Priority Priority { get; set; }
         public ICollection<String> Tasks { get; private set; }
 
     }
@@ -21,7 +30,7 @@ namespace ClassTaskLibrary
 
     public partial class CourseInfo: UserControl
     {
-        public event EventHandler<CourseInfoEventArgs> CoursePrioritySelected;
+        public event EventHandler<CourseInfoEventArgs> ChangeHasOccured;
 
 
      
@@ -57,7 +66,10 @@ namespace ClassTaskLibrary
         private void PriorityChanged()
         {
             var data = new CourseInfoEventArgs();
-            this.CoursePrioritySelected?.Invoke(this, data);
+
+            this.ChangeHasOccured?.Invoke(this, data);
+
+
 
         }
 
