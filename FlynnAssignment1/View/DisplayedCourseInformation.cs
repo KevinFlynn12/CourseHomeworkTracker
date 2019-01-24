@@ -27,11 +27,8 @@ namespace FlynnAssignment1
             this.controller = new ClassesInformationController();
             this.Course1Info.ChangeHasOccured += this.processPriority;
             this.ClassInformation.Text = PriorityOutput.BuildPriorityOutput(null);
-
-            this.ClassesTabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
-            this.ClassesTabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
+            
             this.SelectedColor = default(Color);
-
         }
 
 
@@ -60,8 +57,25 @@ namespace FlynnAssignment1
 
 
         private void processPriority(object sender, CourseInfoEventArgs e)
-        {    
-                this.ClassInformation.Text += "Success";
+        {
+
+            if (e.Priority == Priority.High)
+            {
+                this.SelectedColor = Color.Red;
+            }
+            else if (e.Priority == Priority.Medium)
+            {
+                this.SelectedColor = Color.Yellow;
+            }
+
+            else
+            {
+                this.SelectedColor = default(Color);
+            }
+
+            this.ClassesTabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
+            this.ClassesTabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

@@ -58,10 +58,7 @@
             // 
             // Course1Info
             // 
-            this.Course1Info.HighPrioritySelected = false;
             this.Course1Info.Location = new System.Drawing.Point(10, 6);
-            this.Course1Info.LowPrioritySelected = false;
-            this.Course1Info.MediumPrioritySelected = false;
             this.Course1Info.Name = "Course1Info";
             this.Course1Info.Size = new System.Drawing.Size(662, 275);
             this.Course1Info.TabIndex = 0;
@@ -106,10 +103,7 @@
             // 
             // Course3Info
             // 
-            this.Course3Info.HighPrioritySelected = false;
             this.Course3Info.Location = new System.Drawing.Point(3, 3);
-            this.Course3Info.LowPrioritySelected = false;
-            this.Course3Info.MediumPrioritySelected = false;
             this.Course3Info.Name = "Course3Info";
             this.Course3Info.Size = new System.Drawing.Size(659, 278);
             this.Course3Info.TabIndex = 0;
@@ -127,10 +121,7 @@
             // 
             // Course2Info
             // 
-            this.Course2Info.HighPrioritySelected = false;
             this.Course2Info.Location = new System.Drawing.Point(7, 7);
-            this.Course2Info.LowPrioritySelected = false;
-            this.Course2Info.MediumPrioritySelected = false;
             this.Course2Info.Name = "Course2Info";
             this.Course2Info.Size = new System.Drawing.Size(655, 277);
             this.Course2Info.TabIndex = 0;
