@@ -16,21 +16,21 @@ namespace ClassTaskLibrary
     {
         public event EventHandler<CourseInfoEventArgs> ChangeHasOccured;
 
-
+        private static int priorityHigh = 3;
+        private static int priorityMedium = 2;
+        private static int priorityLow = 1;
      
         
         public CourseInfo()
         {
             this.InitializeComponent();
             this.LowPriorityButton.Checked = true;
-            
-
-
+           
         }
 
 
 
-        private void PriorityChanged(Priority changedPriority)
+        private void PriorityChanged(int changedPriority)
         {
             var data = new CourseInfoEventArgs {Priority = changedPriority};
 
@@ -67,46 +67,33 @@ namespace ClassTaskLibrary
 
 
 
-        private void RowAlteredToGridView(object sender, DataGridViewCellEventArgs e) 
-        {
-            this.GenerateTasks();
-        }
-
         private void CourseTasksGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-           
+            this.TaskHasChanged(this.GenerateTasks());  
+
         }
 
         private void HighPriorityButton_CheckedChanged(object sender, EventArgs e)
         {
-            this.PriorityChanged(Priority.High);
+            this.PriorityChanged(priorityHigh);
         }
 
         private void MediumPriorityButton_CheckedChanged(object sender, EventArgs e)
         {
-            this.PriorityChanged(Priority.Medium);
+            this.PriorityChanged(priorityMedium);
         }
 
         private void LowPriorityButton_CheckedChanged(object sender, EventArgs e)
         {
-            this.PriorityChanged(Priority.Low);
-
+            this.PriorityChanged(priorityLow);
         }
     }
 
     public class CourseInfoEventArgs : EventArgs
     {
-        public Priority Priority { get; set; }
+        public int Priority { get; set; }
         public ICollection<String> Tasks { get; set; }
 
-    }
-
-
-    public enum Priority
-    {
-        High = 3,
-        Medium = 2,
-        Low = 1
     }
 
 }

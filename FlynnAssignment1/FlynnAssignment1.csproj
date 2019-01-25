@@ -71,7 +71,6 @@
     <Compile Include="Helper\Priority.cs" />
     <Compile Include="Model\AllClasses.cs" />
     <Compile Include="Model\Course.cs" />
-    <Compile Include="Model\Task.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\Output\PriorityOutput.cs" />

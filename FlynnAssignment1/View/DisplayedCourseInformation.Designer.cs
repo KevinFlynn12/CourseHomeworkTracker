@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.TabPage CS3202;
-            this.Course1Info = new ClassTaskLibrary.CourseInfo();
+            this.CS3202Info = new ClassTaskLibrary.CourseInfo();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.ClassInformation = new System.Windows.Forms.TextBox();
             this.CHEM1212 = new System.Windows.Forms.TabPage();
-            this.Course3Info = new ClassTaskLibrary.CourseInfo();
+            this.CHEM1212Info = new ClassTaskLibrary.CourseInfo();
             this.ENGL1102 = new System.Windows.Forms.TabPage();
-            this.Course2Info = new ClassTaskLibrary.CourseInfo();
+            this.ENGL1102Info = new ClassTaskLibrary.CourseInfo();
             this.ClassesTabControl = new System.Windows.Forms.TabControl();
             CS3202 = new System.Windows.Forms.TabPage();
             CS3202.SuspendLayout();
@@ -47,7 +47,7 @@
             // 
             // CS3202
             // 
-            CS3202.Controls.Add(this.Course1Info);
+            CS3202.Controls.Add(this.CS3202Info);
             CS3202.Location = new System.Drawing.Point(4, 25);
             CS3202.Name = "CS3202";
             CS3202.Padding = new System.Windows.Forms.Padding(3);
@@ -56,12 +56,12 @@
             CS3202.Text = "CS 3202";
             CS3202.UseVisualStyleBackColor = true;
             // 
-            // Course1Info
+            // CS3202Info
             // 
-            this.Course1Info.Location = new System.Drawing.Point(10, 6);
-            this.Course1Info.Name = "Course1Info";
-            this.Course1Info.Size = new System.Drawing.Size(662, 275);
-            this.Course1Info.TabIndex = 0;
+            this.CS3202Info.Location = new System.Drawing.Point(10, 6);
+            this.CS3202Info.Name = "CS3202Info";
+            this.CS3202Info.Size = new System.Drawing.Size(662, 275);
+            this.CS3202Info.TabIndex = 0;
             // 
             // label1
             // 
@@ -88,11 +88,10 @@
             this.ClassInformation.Name = "ClassInformation";
             this.ClassInformation.Size = new System.Drawing.Size(668, 240);
             this.ClassInformation.TabIndex = 3;
-            this.ClassInformation.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // CHEM1212
             // 
-            this.CHEM1212.Controls.Add(this.Course3Info);
+            this.CHEM1212.Controls.Add(this.CHEM1212Info);
             this.CHEM1212.Location = new System.Drawing.Point(4, 25);
             this.CHEM1212.Name = "CHEM1212";
             this.CHEM1212.Padding = new System.Windows.Forms.Padding(3);
@@ -101,16 +100,16 @@
             this.CHEM1212.Text = "CHEM 1212";
             this.CHEM1212.UseVisualStyleBackColor = true;
             // 
-            // Course3Info
+            // CHEM1212Info
             // 
-            this.Course3Info.Location = new System.Drawing.Point(3, 3);
-            this.Course3Info.Name = "Course3Info";
-            this.Course3Info.Size = new System.Drawing.Size(659, 278);
-            this.Course3Info.TabIndex = 0;
+            this.CHEM1212Info.Location = new System.Drawing.Point(9, 0);
+            this.CHEM1212Info.Name = "CHEM1212Info";
+            this.CHEM1212Info.Size = new System.Drawing.Size(659, 278);
+            this.CHEM1212Info.TabIndex = 0;
             // 
             // ENGL1102
             // 
-            this.ENGL1102.Controls.Add(this.Course2Info);
+            this.ENGL1102.Controls.Add(this.ENGL1102Info);
             this.ENGL1102.Location = new System.Drawing.Point(4, 25);
             this.ENGL1102.Name = "ENGL1102";
             this.ENGL1102.Padding = new System.Windows.Forms.Padding(3);
@@ -119,12 +118,12 @@
             this.ENGL1102.Text = "ENGL 1102";
             this.ENGL1102.UseVisualStyleBackColor = true;
             // 
-            // Course2Info
+            // ENGL1102Info
             // 
-            this.Course2Info.Location = new System.Drawing.Point(7, 7);
-            this.Course2Info.Name = "Course2Info";
-            this.Course2Info.Size = new System.Drawing.Size(655, 277);
-            this.Course2Info.TabIndex = 0;
+            this.ENGL1102Info.Location = new System.Drawing.Point(7, 7);
+            this.ENGL1102Info.Name = "ENGL1102Info";
+            this.ENGL1102Info.Size = new System.Drawing.Size(655, 277);
+            this.ENGL1102Info.TabIndex = 0;
             // 
             // ClassesTabControl
             // 
@@ -136,6 +135,7 @@
             this.ClassesTabControl.SelectedIndex = 0;
             this.ClassesTabControl.Size = new System.Drawing.Size(676, 316);
             this.ClassesTabControl.TabIndex = 0;
+            
             // 
             // Form1
             // 
@@ -162,10 +162,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox ClassInformation;
         private System.Windows.Forms.TabPage CHEM1212;
-        private ClassTaskLibrary.CourseInfo Course3Info;
+        private ClassTaskLibrary.CourseInfo CHEM1212Info;
         private System.Windows.Forms.TabPage ENGL1102;
-        private ClassTaskLibrary.CourseInfo Course2Info;
-        private ClassTaskLibrary.CourseInfo Course1Info;
+        private ClassTaskLibrary.CourseInfo ENGL1102Info;
+        private ClassTaskLibrary.CourseInfo CS3202Info;
         private System.Windows.Forms.TabControl ClassesTabControl;
     }
 }

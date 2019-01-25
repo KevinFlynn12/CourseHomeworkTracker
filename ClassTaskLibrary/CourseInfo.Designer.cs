@@ -90,6 +90,10 @@ namespace ClassTaskLibrary
             this.CourseTasksGridView.Size = new System.Drawing.Size(540, 261);
             this.CourseTasksGridView.TabIndex = 2;
             this.CourseTasksGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CourseTasksGridView_CellContentClick);
+            this.CourseTasksGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.CourseTasksGridView_CellContentClick);
+            this.CourseTasksGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CourseTasksGridView_CellContentClick);
+
+
             // 
             // Task
             // 

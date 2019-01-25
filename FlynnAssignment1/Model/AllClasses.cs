@@ -67,7 +67,7 @@ namespace FlynnAssignment1.Model
             return this.classes.GetEnumerator();
         }
 
-        public ICollection<Course> FindMatchPriorityCourses(Priority priority)
+        public ICollection<Course> FindMatchingCourses(Priority priority)
         {
             var selectedPriorityCourses = new List<Course>();
             foreach (var currentCourse in this.classes)
