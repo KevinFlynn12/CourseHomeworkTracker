@@ -19,9 +19,9 @@ namespace FlynnAssignment1.View.Output
         /// <param name="Courses"> Collection of classes</param>
         public static string BuildPriorityOutput(AllClasses Classes)
         {
-            var output = buildPriorityOutput(Classes.FindMatchingCourses(Priority.High), "High");
-            output += buildPriorityOutput(Classes.FindMatchingCourses(Priority.Medium), "Medium");
-            output += buildPriorityOutput(Classes.FindMatchingCourses(Priority.Low), "Low");
+            var output = buildPriorityOutput(Classes.FindMatchingCourses(Priority.High), "High") + Environment.NewLine;
+            output += buildPriorityOutput(Classes.FindMatchingCourses(Priority.Medium), "Medium") + Environment.NewLine;
+            output += buildPriorityOutput(Classes.FindMatchingCourses(Priority.Low), "Low") + Environment.NewLine;
 
             return output;
         }
@@ -37,7 +37,7 @@ namespace FlynnAssignment1.View.Output
                 foreach (var currentClass in selectedPriorityClasses)
                 {
                     output += currentClass.CourseTitle + ":" + Environment.NewLine;
-                    output += Indent +  buildTaskOutput(currentClass);
+                    output +=  buildTaskOutput(currentClass);
 
                 }
             }
@@ -57,7 +57,7 @@ namespace FlynnAssignment1.View.Output
             var output = "";
             foreach (var currentTask in tasks)
             {
-                output += currentTask + Environment.NewLine;
+                output += Indent + currentTask + Environment.NewLine;
             }
 
             return output;

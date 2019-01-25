@@ -32,50 +32,54 @@ namespace ClassTaskLibrary
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.LowPriorityButton = new System.Windows.Forms.RadioButton();
             this.MediumPriorityButton = new System.Windows.Forms.RadioButton();
             this.HighPriorityButton = new System.Windows.Forms.RadioButton();
             this.CourseTasksGridView = new System.Windows.Forms.DataGridView();
-            this.Task = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CompletedTask = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Task = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PriorityGroupBox = new System.Windows.Forms.GroupBox();
+            this.DataGridViewMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.checkAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unCheckAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.CourseTasksGridView)).BeginInit();
+            this.PriorityGroupBox.SuspendLayout();
+            this.DataGridViewMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // LowPriorityButton
             // 
             this.LowPriorityButton.AutoSize = true;
-            this.LowPriorityButton.Location = new System.Drawing.Point(11, 116);
+            this.LowPriorityButton.Location = new System.Drawing.Point(6, 79);
             this.LowPriorityButton.Name = "LowPriorityButton";
             this.LowPriorityButton.Size = new System.Drawing.Size(54, 21);
             this.LowPriorityButton.TabIndex = 2;
             this.LowPriorityButton.TabStop = true;
             this.LowPriorityButton.Text = "Low";
             this.LowPriorityButton.UseVisualStyleBackColor = true;
-            this.LowPriorityButton.CheckedChanged += new System.EventHandler(this.LowPriorityButton_CheckedChanged);
             // 
             // MediumPriorityButton
             // 
             this.MediumPriorityButton.AutoSize = true;
-            this.MediumPriorityButton.Location = new System.Drawing.Point(11, 75);
+            this.MediumPriorityButton.Location = new System.Drawing.Point(6, 54);
             this.MediumPriorityButton.Name = "MediumPriorityButton";
             this.MediumPriorityButton.Size = new System.Drawing.Size(78, 21);
             this.MediumPriorityButton.TabIndex = 1;
             this.MediumPriorityButton.TabStop = true;
             this.MediumPriorityButton.Text = "Medium";
             this.MediumPriorityButton.UseVisualStyleBackColor = true;
-            this.MediumPriorityButton.CheckedChanged += new System.EventHandler(this.MediumPriorityButton_CheckedChanged);
             // 
             // HighPriorityButton
             // 
             this.HighPriorityButton.AutoSize = true;
-            this.HighPriorityButton.Location = new System.Drawing.Point(11, 27);
+            this.HighPriorityButton.Location = new System.Drawing.Point(6, 27);
             this.HighPriorityButton.Name = "HighPriorityButton";
             this.HighPriorityButton.Size = new System.Drawing.Size(58, 21);
             this.HighPriorityButton.TabIndex = 0;
             this.HighPriorityButton.TabStop = true;
             this.HighPriorityButton.Text = "High";
             this.HighPriorityButton.UseVisualStyleBackColor = true;
-            this.HighPriorityButton.CheckedChanged += new System.EventHandler(this.HighPriorityButton_CheckedChanged);
             // 
             // CourseTasksGridView
             // 
@@ -89,11 +93,14 @@ namespace ClassTaskLibrary
             this.CourseTasksGridView.RowTemplate.Height = 24;
             this.CourseTasksGridView.Size = new System.Drawing.Size(540, 261);
             this.CourseTasksGridView.TabIndex = 2;
+            this.CourseTasksGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CourseTasksGridView_CellContentClick);
             this.CourseTasksGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CourseTasksGridView_CellContentClick);
             this.CourseTasksGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.CourseTasksGridView_CellContentClick);
-            this.CourseTasksGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CourseTasksGridView_CellContentClick);
-
-
+            // 
+            // CompletedTask
+            // 
+            this.CompletedTask.HeaderText = "Done";
+            this.CompletedTask.Name = "CompletedTask";
             // 
             // Task
             // 
@@ -101,24 +108,55 @@ namespace ClassTaskLibrary
             this.Task.HeaderText = "Task";
             this.Task.Name = "Task";
             // 
-            // CompletedTask
+            // PriorityGroupBox
             // 
-            this.CompletedTask.HeaderText = "Done";
-            this.CompletedTask.Name = "CompletedTask";
+            this.PriorityGroupBox.Controls.Add(this.HighPriorityButton);
+            this.PriorityGroupBox.Controls.Add(this.LowPriorityButton);
+            this.PriorityGroupBox.Controls.Add(this.MediumPriorityButton);
+            this.PriorityGroupBox.Location = new System.Drawing.Point(11, 13);
+            this.PriorityGroupBox.Name = "PriorityGroupBox";
+            this.PriorityGroupBox.Size = new System.Drawing.Size(96, 100);
+            this.PriorityGroupBox.TabIndex = 3;
+            this.PriorityGroupBox.TabStop = false;
+            this.PriorityGroupBox.Text = "Priority";
+            this.PriorityGroupBox.Enter += new System.EventHandler(this.PriorityGroupBox_Enter);
+            // 
+            // DataGridViewMenuStrip
+            // 
+            this.DataGridViewMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.DataGridViewMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.checkAllToolStripMenuItem,
+            this.unCheckAllToolStripMenuItem});
+            this.DataGridViewMenuStrip.Name = "DataGridViewMenuStrip";
+            this.DataGridViewMenuStrip.Size = new System.Drawing.Size(158, 52);
+            // 
+            // checkAllToolStripMenuItem
+            // 
+            this.checkAllToolStripMenuItem.Name = "checkAllToolStripMenuItem";
+            this.checkAllToolStripMenuItem.Size = new System.Drawing.Size(157, 24);
+            this.checkAllToolStripMenuItem.Text = "Check All";
+            this.checkAllToolStripMenuItem.Click += new System.EventHandler(this.checkAllToolStripMenuItem_Click);
+            // 
+            // unCheckAllToolStripMenuItem
+            // 
+            this.unCheckAllToolStripMenuItem.Name = "unCheckAllToolStripMenuItem";
+            this.unCheckAllToolStripMenuItem.Size = new System.Drawing.Size(157, 24);
+            this.unCheckAllToolStripMenuItem.Text = "UnCheck All";
+            this.unCheckAllToolStripMenuItem.Click += new System.EventHandler(this.unCheckAllToolStripMenuItem_Click);
             // 
             // CourseInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.LowPriorityButton);
+            this.Controls.Add(this.PriorityGroupBox);
             this.Controls.Add(this.CourseTasksGridView);
-            this.Controls.Add(this.MediumPriorityButton);
-            this.Controls.Add(this.HighPriorityButton);
             this.Name = "CourseInfo";
             this.Size = new System.Drawing.Size(666, 292);
             ((System.ComponentModel.ISupportInitialize)(this.CourseTasksGridView)).EndInit();
+            this.PriorityGroupBox.ResumeLayout(false);
+            this.PriorityGroupBox.PerformLayout();
+            this.DataGridViewMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -129,5 +167,9 @@ namespace ClassTaskLibrary
         private System.Windows.Forms.DataGridView CourseTasksGridView;
         private System.Windows.Forms.DataGridViewCheckBoxColumn CompletedTask;
         private System.Windows.Forms.DataGridViewTextBoxColumn Task;
+        private System.Windows.Forms.GroupBox PriorityGroupBox;
+        private System.Windows.Forms.ContextMenuStrip DataGridViewMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem checkAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem unCheckAllToolStripMenuItem;
     }
 }

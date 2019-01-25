@@ -42,10 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CourseInfo.cs" />
+    <Compile Include="CourseInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="CourseInfo.Designer.cs">
       <DependentUpon>CourseInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Event\CourseInfoEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
@@ -53,6 +56,9 @@
     <EmbeddedResource Include="CourseInfo.resx">
       <DependentUpon>CourseInfo.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

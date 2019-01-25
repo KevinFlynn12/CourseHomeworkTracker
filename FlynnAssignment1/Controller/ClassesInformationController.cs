@@ -41,20 +41,39 @@ namespace FlynnAssignment1.Controller
             return PriorityOutput.BuildPriorityOutput(this.AllClasses);
         }
 
-        public void UpdateSelectedCoursesTasks(String name, ICollection<String> newTasks)
+        public void UpdateSelectedCoursesTasks(String name, ICollection<String> newTasks, int priority)
         {
             foreach (Course currentCourse in this.AllClasses)
             {
                 if (currentCourse.CourseTitle.Equals(name))
                 {
-                    currentCourse.UpdateTasks(newTasks);
+                    var newPriority = this.convertValueToPriority(priority);
+                    if (newTasks != null)
+                    {
+                        currentCourse.UpdateTasks(newTasks);
+                    }
+                    currentCourse.Priority = newPriority;
                 }
             }
         }
 
-        public void UpdateSelectedCoursesPriority(String courseName, Priority priority)
+        private Priority convertValueToPriority(int priority)
         {
+            Priority newPriority;
+            if (priority == (int) Priority.High)
+            {
+                newPriority =  Priority.High;
+            }
+            else if (priority == (int)Priority.Medium)
+            {
+                newPriority =  Priority.Medium;
+            }
+            else
+            {
+                newPriority = Priority.Low;
+            }
 
+            return newPriority;
         }
 
     }

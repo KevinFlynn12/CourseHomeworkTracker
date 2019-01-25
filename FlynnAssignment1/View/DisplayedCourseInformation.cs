@@ -4,10 +4,12 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClassTaskLibrary;
+using ClassTaskLibrary.Event;
 using FlynnAssignment1.Controller;
 using FlynnAssignment1.Helper;
 using FlynnAssignment1.View.Output;
@@ -17,8 +19,6 @@ namespace FlynnAssignment1
     public partial class Form1 : Form
     {
         private Color SelectedColor;
-
-        
 
         private ClassesInformationController controller;
         private int CS3202TabIndex = 0;
@@ -51,20 +51,13 @@ namespace FlynnAssignment1
             this.ENGL1102Info.ChangeHasOccured += this.processPriority;
             this.ClassesTabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
             this.ClassesTabControl.DrawItem += this.tabControl1_DrawItem;    
-             
+          
         }
 
         private void processTaskChange(object sender, CourseInfoEventArgs e)
-        {
-            try
-            {
-                this.controller.UpdateSelectedCoursesTasks(this.ClassesTabControl.SelectedTab.Text, e.Tasks);
-                this.ClassInformation.Text = this.controller.BuildClassesOutput();
-            }
-            catch (Exception)
-            {
-
-            }       
+        {  
+            this.controller.UpdateSelectedCoursesTasks(this.ClassesTabControl.SelectedTab.Text, e.Tasks, e.Priority);
+            this.ClassInformation.Text = this.controller.BuildClassesOutput();
         }
 
 
@@ -78,14 +71,12 @@ namespace FlynnAssignment1
 
         private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
         {
-            TabPage page = this.ClassesTabControl.TabPages[e.Index];
-            e.Graphics.FillRectangle(new SolidBrush(this.SelectedColor), e.Bounds);
-
-            Rectangle paddedBounds = e.Bounds;
-            int yOffset = (e.State == DrawItemState.Selected) ? -2 : 1;
-            paddedBounds.Offset(1, yOffset);
-            TextRenderer.DrawText(e.Graphics, page.Text, Font, paddedBounds, page.ForeColor);
-
+             TabPage page = this.ClassesTabControl.TabPages[e.Index];
+             e.Graphics.FillRectangle(new SolidBrush(this.SelectedColor), e.Bounds);
+             Rectangle tabBounds = e.Bounds;
+             int yOffset = (e.State == DrawItemState.Selected) ? -2 : 1;
+             tabBounds.Offset(1, yOffset);
+             TextRenderer.DrawText(e.Graphics, page.Text, Font, tabBounds, page.ForeColor);            
         }
 
 
@@ -94,8 +85,14 @@ namespace FlynnAssignment1
         {
             this.determineSelectedColor(e);
             this.ClassesTabControl.Invalidate(this.ClassesTabControl.GetTabRect(this.ClassesTabControl.SelectedIndex));
+            this.controller.UpdateSelectedCoursesTasks(this.ClassesTabControl.SelectedTab.Text, e.Tasks, e.Priority);
+            this.controller.BuildClassesOutput();
 
         }
+
+
+      
+
 
         private void determineSelectedColor(CourseInfoEventArgs e)
         {
@@ -108,7 +105,6 @@ namespace FlynnAssignment1
             {
                 this.SelectedColor = Color.Yellow;
             }
-
             else
             {
                 this.SelectedColor = default(Color);

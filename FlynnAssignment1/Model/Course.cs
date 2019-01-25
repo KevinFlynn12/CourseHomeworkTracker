@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FlynnAssignment1.Helper;
 
 namespace FlynnAssignment1.Model
@@ -100,8 +101,8 @@ namespace FlynnAssignment1.Model
 
         public void UpdateTasks(ICollection<String> newTasks)
         {
-            this.CheckToAddNewTasks(newTasks);
-            this.CheckToRemoveTasks(newTasks);
+              this.CheckToAddNewTasks(newTasks);
+              this.CheckToRemoveTasks(newTasks);
         }
 
         private void CheckToRemoveTasks(ICollection<string> newTasks)
