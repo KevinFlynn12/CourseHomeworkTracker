@@ -28,15 +28,13 @@ namespace FlynnAssignment1.Controller
                {
                    if (currentTask != String.Empty)
                    {
-                
                        course.Add(currentTask);
-                }
-                   
+                   }                 
                }
                this.AllClasses.Add(course);
         }
 
-        public String BuildClassesOutput()
+        public String UpdateClassesOutput()
         {
             return PriorityOutput.BuildPriorityOutput(this.AllClasses);
         }

@@ -21,24 +21,39 @@ namespace ClassTaskLibrary
         private static int priorityHigh = 3;
         private static int priorityMedium = 2;
         private static int priorityLow = 1;
-     
+        private static int textBoxIndex = 1;
+        private static int checkBoxIndex = 0;
+        private int selectedPriority;
+
+
+       
         
         public CourseInfo()
         {
             this.InitializeComponent();
             this.LowPriorityButton.Checked = true;
-
             this.HighPriorityButton.CheckedChanged += this.PriorityGroupBox_Enter;
             this.MediumPriorityButton.CheckedChanged += this.PriorityGroupBox_Enter;
             this.LowPriorityButton.CheckedChanged += this.PriorityGroupBox_Enter;
-            this.CourseTasksGridView.MouseDown += this.pictureBox1_MouseDown;
+            this.CourseTasksGridView.MouseDown += this.TaskDataGridView_MouseDown;
 
-
+            
         }
 
+        public void AddTasks(IList<String> tasks)
+        {
+            this.CourseTasksGridView.Rows.Add(tasks.Count);
 
+            for (int i = 0; i < tasks.Count; i++)
+            {
+                var row = this.CourseTasksGridView.Rows[i];
+                var currentTask = tasks[i];
+          
+                row.Cells[textBoxIndex].Value = currentTask;
+            }
+        }
 
-        private void PriorityChanged(int changedPriority)
+        private void PriorityHasChanged(int changedPriority)
         {
             var data = new CourseInfoEventArgs {Priority = changedPriority};
 
@@ -50,6 +65,8 @@ namespace ClassTaskLibrary
         {
             var data = new CourseInfoEventArgs {
                 Tasks = changedTask, 
+                Priority = this.selectedPriority
+
             };
 
             this.ChangeHasOccured?.Invoke(this, data);
@@ -61,13 +78,13 @@ namespace ClassTaskLibrary
             var tasks = new List<string>();
             foreach (DataGridViewRow row in this.CourseTasksGridView.Rows)
             {
-                DataGridViewCheckBoxCell cell = (DataGridViewCheckBoxCell)row.Cells[0];
-                if (!Convert.ToBoolean(cell.EditedFormattedValue))
+                DataGridViewCheckBoxCell checkBoxCell = (DataGridViewCheckBoxCell)row.Cells[checkBoxIndex];
+                if (!Convert.ToBoolean(checkBoxCell.EditedFormattedValue))
                 {
-                    DataGridViewTextBoxCell textCell = (DataGridViewTextBoxCell)row.Cells[1];
-                    if (textCell.Value != null)
+                    DataGridViewTextBoxCell textBoxCell = (DataGridViewTextBoxCell)row.Cells[textBoxIndex];
+                    if (textBoxCell.Value != null)
                     {
-                        tasks.Add(textCell.Value.ToString());
+                        tasks.Add(textBoxCell.Value.ToString());
                     }
                 }
             }
@@ -80,19 +97,15 @@ namespace ClassTaskLibrary
         private void CourseTasksGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             this.TaskHasChanged(this.GenerateTasks());  
-
         }
 
 
-        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        private void TaskDataGridView_MouseDown(object sender, MouseEventArgs e)
         {
-            switch (e.Button)
+            var mouseClick = e.Button;
+            if (mouseClick == MouseButtons.Right)
             {
-                case MouseButtons.Right:
-                {
-                    this.DataGridViewMenuStrip.Show(this, new Point(e.X, e.Y));
-                }
-                    break;
+                this.DataGridViewMenuStrip.Show(this, new Point(e.X, e.Y));
             }
         }
 
@@ -101,27 +114,49 @@ namespace ClassTaskLibrary
         {
             if (this.HighPriorityButton.Checked)
             {
-                this.PriorityChanged(priorityHigh);
+                this.updatePriority(priorityHigh);
             }
             else if (this.MediumPriorityButton.Checked)
             {
-                this.PriorityChanged(priorityMedium);
+                this.updatePriority(priorityMedium);
 
             }
             else if(this.LowPriorityButton.Checked)
             {
-                this.PriorityChanged(priorityLow);
+                this.updatePriority(priorityLow);
             }
 
         }
 
+        private void updatePriority(int newPriority)
+        {
+            this.PriorityHasChanged(newPriority);
+            this.selectedPriority = newPriority;
+        }
+
         private void checkAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+           this.updateAllCheckBoxesInGridView(false, true);
         }
+
+        private void updateAllCheckBoxesInGridView(bool originalValue, bool newValue)
+        {
+            foreach (DataGridViewRow row in this.CourseTasksGridView.Rows)
+            {
+                DataGridViewCheckBoxCell currentCheckBox = (DataGridViewCheckBoxCell)row.Cells[0];
+                if (currentCheckBox.Selected == originalValue)
+                {
+                    currentCheckBox.Value = newValue;
+                    currentCheckBox.Selected = newValue;
+                }
+            }
+        }
+
+
 
         private void unCheckAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.updateAllCheckBoxesInGridView(true, false);
 
         }
     }

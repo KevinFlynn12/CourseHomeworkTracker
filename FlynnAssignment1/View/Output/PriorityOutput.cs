@@ -30,6 +30,12 @@ namespace FlynnAssignment1.View.Output
 
         private static string buildPriorityOutput(ICollection<Course> selectedPriorityClasses, string prioritySelected)
         {
+            if (!selectedPriorityClasses.Any())
+            {
+                return String.Empty;
+            }
+
+
             var output = prioritySelected + "Priority Classes" + Environment.NewLine;
             output += BorderLine;
             try
@@ -41,14 +47,11 @@ namespace FlynnAssignment1.View.Output
 
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
-           
-
-
-            return output;
+           return output;
         }
 
 
