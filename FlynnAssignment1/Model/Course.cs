@@ -104,44 +104,7 @@ namespace FlynnAssignment1.View.Model
         }
 
 
-
-        public void UpdateTasks(ICollection<String> newTasks)
-        {
-              this.CheckToAddNewTasks(newTasks);
-              this.CheckToRemoveTasks(newTasks);
-        }
-
-        private void CheckToRemoveTasks(ICollection<string> newTasks)
-        {
-            for (int i = this.Tasks.Count - 1; i >= 0; i--)
-            {
-                var currentTask = this.Tasks[i];
-                if (!newTasks.Contains(currentTask))
-                {
-                    this.Remove(currentTask);
-                }
-            }
-        }
-
-        private void CheckToAddNewTasks(ICollection<string> newTasks)
-        {
-            try
-            {
-                foreach (var currNewTask in newTasks)
-                {
-                    if (!this.Tasks.Contains(currNewTask))
-                    {
-                        this.Tasks.Add(currNewTask);
-                    }
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-
             
-        }
 
         #endregion
 

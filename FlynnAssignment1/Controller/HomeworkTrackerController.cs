@@ -15,15 +15,18 @@ namespace FlynnAssignment1.View.Controller
     {
         private AllClasses AllClasses;
 
-     
 
+
+        /// <summary>Initalizes the HomeWorkTrackerController</summary>
         public HomeworkTrackerController()
         {
-            this.AllClasses = new AllClasses();
-          
+            this.AllClasses = new AllClasses();         
         }
 
-        public void InitializeCourse(String courseName, ICollection<String> Task)
+        /// <summary>Creates a course for the AllClasses class </summary>
+        /// <param name="courseName"> The name of the course you wish to initalize</param>
+        /// <param name="Task">Is the list of task you wish to add the selected Course</param>
+        public void CreateACourse(String courseName, ICollection<String> Task)
         {
                var course = new Course(courseName);
                foreach (var currentTask in Task)
@@ -36,6 +39,10 @@ namespace FlynnAssignment1.View.Controller
                this.AllClasses.Add(course);
         }
 
+        /// <summary> Takes the file information from the selected file loads turns it
+        /// into a AllClasses class object and updates each corresponding course information
+        /// with the loaded csv file</summary>
+        /// <param name="fileInfo">the file information</param>
         public void LoadCoursesFromCSVFile(string[] fileInfo)
         {
             var newClasses = HomeworkTrackerFileReader.ParseHomeWorkTrackerCSVFile(fileInfo);
@@ -43,13 +50,15 @@ namespace FlynnAssignment1.View.Controller
             {
                 this.UpdateSelectedCoursesTasks(currentCourse.CourseTitle, currentCourse.Tasks, (int)currentCourse.Priority);
             }
-        }      
+        }
 
 
-        public string WriteHomeworkTracker()
+        /// <summary>Calls File writer to write a csv file on the information
+        /// provided by the allClasses class</summary>
+        /// <returns> a string of information about each of the courses</returns>
+        public string WriteCSVFile()
         {
             return HomeworkTrackerFileWriter.WriteCSVFile(this.AllClasses);
-
         }
 
 
@@ -68,7 +77,7 @@ namespace FlynnAssignment1.View.Controller
                     var newPriority = this.convertValueToPriority(priority);
                     if (newTasks != null)
                     {
-                        currentCourse.UpdateTasks(newTasks);
+                        currentCourse.Tasks = (IList<String>)newTasks;
                     }
                     currentCourse.Priority = newPriority;
                 }

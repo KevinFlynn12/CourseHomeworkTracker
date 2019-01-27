@@ -78,11 +78,11 @@ namespace FlynnAssignment1.View
 
         private void CreateAllCourses()
         {
-            this.controller.InitializeCourse(this.ClassesTabControl.TabPages[this.CS3202TabIndex].Text,
+            this.controller.CreateACourse(this.ClassesTabControl.TabPages[this.CS3202TabIndex].Text,
                 this.CS3202Info.GenerateTasks());
-            this.controller.InitializeCourse(this.ClassesTabControl.TabPages[this.ENGL1102TabIndex].Text,
+            this.controller.CreateACourse(this.ClassesTabControl.TabPages[this.ENGL1102TabIndex].Text,
                 this.ENGL1102Info.GenerateTasks());
-            this.controller.InitializeCourse(this.ClassesTabControl.TabPages[this.CHEM1212TabIndex].Text,
+            this.controller.CreateACourse(this.ClassesTabControl.TabPages[this.CHEM1212TabIndex].Text,
                 this.CHEM1212Info.GenerateTasks());
         }
 
@@ -164,7 +164,7 @@ namespace FlynnAssignment1.View
 
         private void saveHomeworkTracker_Click(object sender, System.EventArgs e)
         {
-            var newCsvFile = this.controller.WriteHomeworkTracker();
+            var newCsvFile = this.controller.WriteCSVFile();
             var FileDialog = new SaveFileDialog();
             string filter = "CSV file (*.csv)|*.csv";
             FileDialog.Filter = filter;

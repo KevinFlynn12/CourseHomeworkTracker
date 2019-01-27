@@ -90,6 +90,7 @@
             this.ClassInformation.Location = new System.Drawing.Point(12, 401);
             this.ClassInformation.Multiline = true;
             this.ClassInformation.Name = "ClassInformation";
+            this.ClassInformation.ReadOnly = true;
             this.ClassInformation.Size = new System.Drawing.Size(668, 240);
             this.ClassInformation.TabIndex = 3;
             // 
@@ -163,14 +164,14 @@
             // OpenHomeworkTrackerFile
             // 
             this.OpenHomeworkTrackerFile.Name = "OpenHomeworkTrackerFile";
-            this.OpenHomeworkTrackerFile.Size = new System.Drawing.Size(216, 26);
+            this.OpenHomeworkTrackerFile.Size = new System.Drawing.Size(120, 26);
             this.OpenHomeworkTrackerFile.Text = "Open";
             this.OpenHomeworkTrackerFile.Click += new System.EventHandler(this.OpenHomeworkTrackerFile_Click);
             // 
             // saveHomeworkTracker
             // 
             this.saveHomeworkTracker.Name = "saveHomeworkTracker";
-            this.saveHomeworkTracker.Size = new System.Drawing.Size(216, 26);
+            this.saveHomeworkTracker.Size = new System.Drawing.Size(120, 26);
             this.saveHomeworkTracker.Text = "Save";
             this.saveHomeworkTracker.Click += new System.EventHandler(this.saveHomeworkTracker_Click);
             // 

@@ -39,6 +39,8 @@ namespace ClassTaskLibrary
 
         public event EventHandler<CourseInfoEventArgs> ChangeHasOccured;
 
+        /// <summary>Adds the tasks to the grid view</summary>
+        /// <param name="tasks">The tasks.</param>
         public void AddTasks(IList<string> tasks)
         {
             this.CourseTasksGridView.Rows.Add(tasks.Count);
@@ -47,7 +49,6 @@ namespace ClassTaskLibrary
             {
                 var row = this.CourseTasksGridView.Rows[i];
                 var currentTask = tasks[i];
-
                 row.Cells[textBoxIndex].Value = currentTask;
             }
         }
