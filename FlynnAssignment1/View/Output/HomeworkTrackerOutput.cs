@@ -15,13 +15,13 @@ namespace FlynnAssignment1.View.View.Output
         private static string BorderLine = "------------------------------------------------" + Environment.NewLine;
         private static string Indent = "     ";
 
-        /// <summary></summary>
+        /// <summary>Builds the output for the allClasses method</summary>
         /// <param name="Courses"> Collection of classes</param>
         public static string BuildCoursesHomeworkByPriority(AllClasses Classes)
         {
-            var output = buildPriorityOutput(Classes.FindMatchingCourses(Priority.High), "High") + Environment.NewLine;
-            output += buildPriorityOutput(Classes.FindMatchingCourses(Priority.Medium), "Medium") + Environment.NewLine;
-            output += buildPriorityOutput(Classes.FindMatchingCourses(Priority.Low), "Low") + Environment.NewLine;
+            var output = buildPriorityOutput(Classes.FindMatchingCourses(Priority.High), "High");
+            output += buildPriorityOutput(Classes.FindMatchingCourses(Priority.Medium), "Medium");
+            output += buildPriorityOutput(Classes.FindMatchingCourses(Priority.Low), "Low");
 
             return output;
         }
@@ -44,6 +44,7 @@ namespace FlynnAssignment1.View.View.Output
                 {
                     output += currentClass.CourseTitle + ":" + Environment.NewLine;
                     output +=  buildTaskOutput(currentClass);
+                    output += Environment.NewLine;
 
                 }
             }

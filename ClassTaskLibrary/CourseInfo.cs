@@ -15,7 +15,26 @@ namespace ClassTaskLibrary
         private static readonly int priorityLow = 1;
         private static readonly int textBoxIndex = 1;
         private static readonly int checkBoxIndex = 0;
-        private int selectedPriority;
+        public int SelectedPriority { get; private set; }
+
+
+        public RadioButton HightPriorityRadioButton
+        {
+            get => this.HighPriorityButton;
+            set => this.HighPriorityButton = value;
+        }
+        public RadioButton MediumPriorityRadioButton
+        {
+            get => this.MediumPriorityButton;
+            set => this.MediumPriorityButton = value;
+        }
+
+        public RadioButton LowtPriorityRadioButton
+        {
+            get => this.LowPriorityButton;
+            set => this.LowPriorityButton = value;
+        }
+
 
         #endregion
 
@@ -25,12 +44,12 @@ namespace ClassTaskLibrary
         {
             this.InitializeComponent();
             this.LowPriorityButton.Checked = true;
-            this.HighPriorityButton.CheckedChanged += this.PriorityGroupBox_Enter;
-            this.MediumPriorityButton.CheckedChanged += this.PriorityGroupBox_Enter;
-            this.LowPriorityButton.CheckedChanged += this.PriorityGroupBox_Enter;
+            this.SelectedPriority = priorityLow;
+            this.HightPriorityRadioButton.CheckedChanged += this.PriorityGroupBox_Enter;
+            this.MediumPriorityRadioButton.CheckedChanged += this.PriorityGroupBox_Enter;
+            this.LowtPriorityRadioButton.CheckedChanged += this.PriorityGroupBox_Enter;
             this.CourseTasksGridView.MouseDown += this.TaskDataGridView_MouseDown;
-             
-           
+            
         }
 
         #endregion
@@ -39,19 +58,45 @@ namespace ClassTaskLibrary
 
         public event EventHandler<CourseInfoEventArgs> ChangeHasOccured;
 
-        /// <summary>Adds the tasks to the grid view</summary>
-        /// <param name="tasks">The tasks.</param>
-        public void AddTasks(IList<string> tasks)
+        /// <summary>Adds the newTasks to the grid view</summary>
+        /// <param name="newTasks">The newTasks.</param>
+        public void LoadTasks(IList<string> newTasks)
         {
-            this.CourseTasksGridView.Rows.Add(tasks.Count);
+            this.clearAllCurrentTasks();
+            if (newTasks.Count > this.CourseTasksGridView.RowCount)
+            {
+                var difference = newTasks.Count - this.CourseTasksGridView.RowCount;
+                this.CourseTasksGridView.Rows.Add(difference + 1);
+            }
 
-            for (var i = 0; i < tasks.Count; i++)
+            for (var i = 0; i < newTasks.Count; i++)
             {
                 var row = this.CourseTasksGridView.Rows[i];
-                var currentTask = tasks[i];
+              
+                var currentTask = newTasks[i];
+
                 row.Cells[textBoxIndex].Value = currentTask;
             }
         }
+
+        private void clearAllCurrentTasks()
+        {
+            foreach(DataGridViewRow row in this.CourseTasksGridView.Rows)
+            {
+                var checkBoxCell = (DataGridViewCheckBoxCell)row.Cells[checkBoxIndex];
+                var textBoxCell = (DataGridViewTextBoxCell)row.Cells[textBoxIndex];
+                if (textBoxCell.Value != null)
+                {
+                    textBoxCell.Value = String.Empty;
+                }
+            }
+        }
+
+
+
+
+
+
 
         private void PriorityHasChanged(int changedPriority)
         {
@@ -64,7 +109,7 @@ namespace ClassTaskLibrary
         {
             var data = new CourseInfoEventArgs {
                 Tasks = changedTask,
-                Priority = this.selectedPriority
+                Priority = this.SelectedPriority
             };
 
             this.ChangeHasOccured?.Invoke(this, data);
@@ -110,15 +155,15 @@ namespace ClassTaskLibrary
         private void PriorityGroupBox_Enter(object sender, EventArgs e)
         {
             
-            if (this.HighPriorityButton.Checked)
+            if (this.HightPriorityRadioButton.Checked)
             {
                 this.updatePriority(priorityHigh);
             }
-            else if (this.MediumPriorityButton.Checked)
+            else if (this.MediumPriorityRadioButton.Checked)
             {
                 this.updatePriority(priorityMedium);
             }
-            else if (this.LowPriorityButton.Checked)
+            else if (this.LowtPriorityRadioButton.Checked)
             {
                 this.updatePriority(priorityLow);
             }
@@ -127,10 +172,10 @@ namespace ClassTaskLibrary
         private void updatePriority(int newPriority)
         {
             this.PriorityHasChanged(newPriority);
-            this.selectedPriority = newPriority;
+            this.SelectedPriority = newPriority;
         }
 
-        private void checkAllToolStripMenuItem_Click(object sender, EventArgs e)
+        private void checkAllTasksMenuItem_Click(object sender, EventArgs e)
         {
             this.updateAllCheckBoxesInGridView( true);
         }
@@ -146,7 +191,7 @@ namespace ClassTaskLibrary
             }
         }
 
-        private void unCheckAllToolStripMenuItem_Click(object sender, EventArgs e)
+        private void unCheckAllTasksMenuItem_Click(object sender, EventArgs e)
         {
             this.updateAllCheckBoxesInGridView(false);
         }

@@ -61,6 +61,27 @@ namespace FlynnAssignment1.View.Controller
             return HomeworkTrackerFileWriter.WriteCSVFile(this.AllClasses);
         }
 
+        public IList<String> FindMatchingCoursesTasks(string courseName)
+        {
+            IList<String> selectedTasks = null;
+        
+            foreach (Course currentCourse in this.AllClasses)
+            {
+                if (currentCourse.CourseTitle.Equals(courseName))
+                {
+                    selectedTasks = currentCourse.Tasks;
+                }
+            }
+
+            return selectedTasks;
+        }
+
+
+     
+
+
+
+
 
 
         public String UpdateClassesOutput()
@@ -68,24 +89,48 @@ namespace FlynnAssignment1.View.Controller
             return HomeworkTrackerOutput.BuildCoursesHomeworkByPriority(this.AllClasses);
         }
 
-        public void UpdateSelectedCoursesTasks(String name, ICollection<String> newTasks, int priority)
+        public void UpdateSelectedCoursesTasks(String name, ICollection<String> newTasks, int priorityValue)
         {
             foreach (Course currentCourse in this.AllClasses)
             {
-                if (currentCourse.CourseTitle.Equals(name))
+                this.handleMatchedCourse(name, newTasks, priorityValue, currentCourse);
+            }
+        }
+
+        private void handleMatchedCourse(string name, ICollection<string> newTasks, int priorityValue, Course currentCourse)
+        {
+            if (currentCourse.CourseTitle.Equals(name))
+            {
+                var newPriority = this.convertValueToPriority(priorityValue);
+                if (newTasks != null )
                 {
-                    var newPriority = this.convertValueToPriority(priority);
-                    if (newTasks != null)
-                    {
-                        currentCourse.Tasks = (IList<String>)newTasks;
-                    }
+                    currentCourse.Tasks = (IList<String>) newTasks;
                     currentCourse.Priority = newPriority;
                 }
             }
         }
 
+        public Priority FindMatchingCoursesPriority(string selectedCourseName)
+        {
+            var newPriority = new Priority();
+            foreach (Course currentCourse in this.AllClasses)
+            {
+                if (currentCourse.CourseTitle.Equals(selectedCourseName))
+                {
+                    newPriority = currentCourse.Priority;
+                }
+            }
+
+            return newPriority;
+
+        }
+
+
+
         private Priority convertValueToPriority(int priority)
         {
+            
+
             Priority newPriority;
             if (priority == (int) Priority.High)
             {

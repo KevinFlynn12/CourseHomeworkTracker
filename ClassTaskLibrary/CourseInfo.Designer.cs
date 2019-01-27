@@ -135,14 +135,14 @@ namespace ClassTaskLibrary
             this.checkAllToolStripMenuItem.Name = "checkAllToolStripMenuItem";
             this.checkAllToolStripMenuItem.Size = new System.Drawing.Size(157, 24);
             this.checkAllToolStripMenuItem.Text = "Check All";
-            this.checkAllToolStripMenuItem.Click += new System.EventHandler(this.checkAllToolStripMenuItem_Click);
+            this.checkAllToolStripMenuItem.Click += new System.EventHandler(this.checkAllTasksMenuItem_Click);
             // 
             // unCheckAllToolStripMenuItem
             // 
             this.unCheckAllToolStripMenuItem.Name = "unCheckAllToolStripMenuItem";
             this.unCheckAllToolStripMenuItem.Size = new System.Drawing.Size(157, 24);
             this.unCheckAllToolStripMenuItem.Text = "UnCheck All";
-            this.unCheckAllToolStripMenuItem.Click += new System.EventHandler(this.unCheckAllToolStripMenuItem_Click);
+            this.unCheckAllToolStripMenuItem.Click += new System.EventHandler(this.unCheckAllTasksMenuItem_Click);
             // 
             // CourseInfo
             // 

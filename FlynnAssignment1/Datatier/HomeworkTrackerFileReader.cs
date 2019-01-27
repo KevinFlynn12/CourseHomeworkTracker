@@ -59,7 +59,10 @@ namespace FlynnAssignment1.View.Datatier
             var coursesTasks = new List<String>();
             for (int i = BeginingTask; i < coursesLine.Length; i++)
             {
-                coursesTasks.Add(coursesLine[i]);
+                if (coursesLine[i] != String.Empty)
+                {
+                    coursesTasks.Add(coursesLine[i]);
+                }
             }
 
             return coursesTasks;
