@@ -1,4 +1,4 @@
-﻿namespace FlynnAssignment1
+﻿namespace FlynnAssignment1.View
 {
     partial class Form1
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TabPage CS3202;
+            this.CS3202 = new System.Windows.Forms.TabPage();
             this.CS3202Info = new ClassTaskLibrary.CourseInfo();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,10 +40,9 @@
             this.ClassesTabControl = new System.Windows.Forms.TabControl();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            CS3202 = new System.Windows.Forms.TabPage();
-            CS3202.SuspendLayout();
+            this.OpenHomeworkTrackerFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveHomeworkTracker = new System.Windows.Forms.ToolStripMenuItem();
+            this.CS3202.SuspendLayout();
             this.CHEM1212.SuspendLayout();
             this.ENGL1102.SuspendLayout();
             this.ClassesTabControl.SuspendLayout();
@@ -52,14 +51,14 @@
             // 
             // CS3202
             // 
-            CS3202.Controls.Add(this.CS3202Info);
-            CS3202.Location = new System.Drawing.Point(4, 25);
-            CS3202.Name = "CS3202";
-            CS3202.Padding = new System.Windows.Forms.Padding(3);
-            CS3202.Size = new System.Drawing.Size(668, 287);
-            CS3202.TabIndex = 0;
-            CS3202.Text = "CS 3202";
-            CS3202.UseVisualStyleBackColor = true;
+            this.CS3202.Controls.Add(this.CS3202Info);
+            this.CS3202.Location = new System.Drawing.Point(4, 25);
+            this.CS3202.Name = "CS3202";
+            this.CS3202.Padding = new System.Windows.Forms.Padding(3);
+            this.CS3202.Size = new System.Drawing.Size(668, 287);
+            this.CS3202.TabIndex = 0;
+            this.CS3202.Text = "CS 3202";
+            this.CS3202.UseVisualStyleBackColor = true;
             // 
             // CS3202Info
             // 
@@ -132,7 +131,7 @@
             // 
             // ClassesTabControl
             // 
-            this.ClassesTabControl.Controls.Add(CS3202);
+            this.ClassesTabControl.Controls.Add(this.CS3202);
             this.ClassesTabControl.Controls.Add(this.ENGL1102);
             this.ClassesTabControl.Controls.Add(this.CHEM1212);
             this.ClassesTabControl.Location = new System.Drawing.Point(12, 62);
@@ -155,23 +154,25 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem,
-            this.saveToolStripMenuItem});
+            this.OpenHomeworkTrackerFile,
+            this.saveHomeworkTracker});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // openToolStripMenuItem
+            // OpenHomeworkTrackerFile
             // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.openToolStripMenuItem.Text = "Open";
+            this.OpenHomeworkTrackerFile.Name = "OpenHomeworkTrackerFile";
+            this.OpenHomeworkTrackerFile.Size = new System.Drawing.Size(216, 26);
+            this.OpenHomeworkTrackerFile.Text = "Open";
+            this.OpenHomeworkTrackerFile.Click += new System.EventHandler(this.OpenHomeworkTrackerFile_Click);
             // 
-            // saveToolStripMenuItem
+            // saveHomeworkTracker
             // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.saveToolStripMenuItem.Text = "Save";
+            this.saveHomeworkTracker.Name = "saveHomeworkTracker";
+            this.saveHomeworkTracker.Size = new System.Drawing.Size(216, 26);
+            this.saveHomeworkTracker.Text = "Save";
+            this.saveHomeworkTracker.Click += new System.EventHandler(this.saveHomeworkTracker_Click);
             // 
             // Form1
             // 
@@ -186,7 +187,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
-            CS3202.ResumeLayout(false);
+            this.CS3202.ResumeLayout(false);
             this.CHEM1212.ResumeLayout(false);
             this.ENGL1102.ResumeLayout(false);
             this.ClassesTabControl.ResumeLayout(false);
@@ -209,8 +210,9 @@
         private System.Windows.Forms.TabControl ClassesTabControl;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem OpenHomeworkTrackerFile;
+        private System.Windows.Forms.ToolStripMenuItem saveHomeworkTracker;
+        private System.Windows.Forms.TabPage CS3202;
     }
 }
 

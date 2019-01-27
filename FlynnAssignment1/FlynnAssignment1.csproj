@@ -61,21 +61,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\ClassesInformationController.cs" />
-    <Compile Include="View\DisplayedCourseInformation.cs">
+    <Compile Include="Controller\HomeworkTrackerController.cs" />
+    <Compile Include="Datatier\HomeworkTrackerFileReader.cs" />
+    <Compile Include="Datatier\HomeworkTrackerFileWriter.cs" />
+    <Compile Include="View\HomeworkTracker.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\DisplayedCourseInformation.Designer.cs">
-      <DependentUpon>DisplayedCourseInformation.cs</DependentUpon>
+    <Compile Include="View\HomeworkTracker.Designer.cs">
+      <DependentUpon>HomeworkTracker.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\Priority.cs" />
     <Compile Include="Model\AllClasses.cs" />
     <Compile Include="Model\Course.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\Output\PriorityOutput.cs" />
-    <EmbeddedResource Include="View\DisplayedCourseInformation.resx">
-      <DependentUpon>DisplayedCourseInformation.cs</DependentUpon>
+    <Compile Include="View\Output\HomeworkTrackerOutput.cs" />
+    <EmbeddedResource Include="View\HomeworkTracker.resx">
+      <DependentUpon>HomeworkTracker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -117,8 +119,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Datatier\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

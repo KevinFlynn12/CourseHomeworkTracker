@@ -4,21 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using FlynnAssignment1.Helper;
-using FlynnAssignment1.Model;
-using FlynnAssignment1.View.Output;
+using FlynnAssignment1.View.Datatier;
+using FlynnAssignment1.View.Helper;
+using FlynnAssignment1.View.Model;
+using FlynnAssignment1.View.View.Output;
 
-namespace FlynnAssignment1.Controller
+namespace FlynnAssignment1.View.Controller
 {
-    public class ClassesInformationController
+    public class HomeworkTrackerController
     {
-        private AllClasses AllClasses; 
+        private AllClasses AllClasses;
 
-       
+     
 
-        public ClassesInformationController()
+        public HomeworkTrackerController()
         {
             this.AllClasses = new AllClasses();
+          
         }
 
         public void InitializeCourse(String courseName, ICollection<String> Task)
@@ -34,9 +36,27 @@ namespace FlynnAssignment1.Controller
                this.AllClasses.Add(course);
         }
 
+        public void LoadCoursesFromCSVFile(string[] fileInfo)
+        {
+            var newClasses = HomeworkTrackerFileReader.ParseHomeWorkTrackerCSVFile(fileInfo);
+            foreach (var currentCourse in newClasses)
+            {
+                this.UpdateSelectedCoursesTasks(currentCourse.CourseTitle, currentCourse.Tasks, (int)currentCourse.Priority);
+            }
+        }      
+
+
+        public string WriteHomeworkTracker()
+        {
+            return HomeworkTrackerFileWriter.WriteCSVFile(this.AllClasses);
+
+        }
+
+
+
         public String UpdateClassesOutput()
         {
-            return PriorityOutput.BuildPriorityOutput(this.AllClasses);
+            return HomeworkTrackerOutput.BuildCoursesHomeworkByPriority(this.AllClasses);
         }
 
         public void UpdateSelectedCoursesTasks(String name, ICollection<String> newTasks, int priority)

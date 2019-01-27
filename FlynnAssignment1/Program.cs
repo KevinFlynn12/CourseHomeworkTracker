@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FlynnAssignment1
+namespace FlynnAssignment1.View
 {
     static class Program
     {

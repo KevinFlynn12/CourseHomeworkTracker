@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using FlynnAssignment1.Helper;
+using FlynnAssignment1.View.Helper;
 
-namespace FlynnAssignment1.Model
+namespace FlynnAssignment1.View.Model
 {
     public class AllClasses : ICollection<Course>
     {

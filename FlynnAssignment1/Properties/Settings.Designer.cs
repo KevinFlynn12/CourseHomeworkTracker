@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FlynnAssignment1.Properties
+namespace FlynnAssignment1.View.Properties
 {
 
 

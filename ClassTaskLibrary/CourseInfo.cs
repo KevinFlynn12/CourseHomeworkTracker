@@ -1,33 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Net.Mail;
-using System.Runtime.CompilerServices;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClassTaskLibrary.Event;
 
 namespace ClassTaskLibrary
 {
-    public partial class CourseInfo: UserControl
+    public partial class CourseInfo : UserControl
     {
-        public event EventHandler<CourseInfoEventArgs> ChangeHasOccured;
+        #region Data members
 
-        private static int priorityHigh = 3;
-        private static int priorityMedium = 2;
-        private static int priorityLow = 1;
-        private static int textBoxIndex = 1;
-        private static int checkBoxIndex = 0;
+        private static readonly int priorityHigh = 3;
+        private static readonly int priorityMedium = 2;
+        private static readonly int priorityLow = 1;
+        private static readonly int textBoxIndex = 1;
+        private static readonly int checkBoxIndex = 0;
         private int selectedPriority;
 
+        #endregion
 
-       
-        
+        #region Constructors
+
         public CourseInfo()
         {
             this.InitializeComponent();
@@ -36,19 +29,25 @@ namespace ClassTaskLibrary
             this.MediumPriorityButton.CheckedChanged += this.PriorityGroupBox_Enter;
             this.LowPriorityButton.CheckedChanged += this.PriorityGroupBox_Enter;
             this.CourseTasksGridView.MouseDown += this.TaskDataGridView_MouseDown;
-
-            
+             
+           
         }
 
-        public void AddTasks(IList<String> tasks)
+        #endregion
+
+        #region Methods
+
+        public event EventHandler<CourseInfoEventArgs> ChangeHasOccured;
+
+        public void AddTasks(IList<string> tasks)
         {
             this.CourseTasksGridView.Rows.Add(tasks.Count);
 
-            for (int i = 0; i < tasks.Count; i++)
+            for (var i = 0; i < tasks.Count; i++)
             {
                 var row = this.CourseTasksGridView.Rows[i];
                 var currentTask = tasks[i];
-          
+
                 row.Cells[textBoxIndex].Value = currentTask;
             }
         }
@@ -60,45 +59,43 @@ namespace ClassTaskLibrary
             this.ChangeHasOccured?.Invoke(this, data);
         }
 
-
-        private void TaskHasChanged(List<String> changedTask)
+        private void TaskHasChanged(List<string> changedTask)
         {
             var data = new CourseInfoEventArgs {
-                Tasks = changedTask, 
+                Tasks = changedTask,
                 Priority = this.selectedPriority
-
             };
 
             this.ChangeHasOccured?.Invoke(this, data);
         }
 
-
-        public List<String> GenerateTasks()
+        public List<string> GenerateTasks()
         {
             var tasks = new List<string>();
             foreach (DataGridViewRow row in this.CourseTasksGridView.Rows)
             {
-                DataGridViewCheckBoxCell checkBoxCell = (DataGridViewCheckBoxCell)row.Cells[checkBoxIndex];
-                if (!Convert.ToBoolean(checkBoxCell.EditedFormattedValue))
+                var checkBoxCell = (DataGridViewCheckBoxCell) row.Cells[checkBoxIndex];
+                checkToAddTextBox(checkBoxCell, row, tasks);
+            }
+            return tasks;
+        }
+
+        private static void checkToAddTextBox(DataGridViewCheckBoxCell checkBoxCell, DataGridViewRow row, List<string> tasks)
+        {
+            if (!Convert.ToBoolean(checkBoxCell.EditedFormattedValue))
+            {
+                var textBoxCell = (DataGridViewTextBoxCell) row.Cells[textBoxIndex];
+                if (textBoxCell.Value != null)
                 {
-                    DataGridViewTextBoxCell textBoxCell = (DataGridViewTextBoxCell)row.Cells[textBoxIndex];
-                    if (textBoxCell.Value != null)
-                    {
-                        tasks.Add(textBoxCell.Value.ToString());
-                    }
+                    tasks.Add(textBoxCell.Value.ToString());
                 }
             }
-
-            return tasks;
-        } 
-
-
+        }
 
         private void CourseTasksGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.TaskHasChanged(this.GenerateTasks());  
+            this.TaskHasChanged(this.GenerateTasks());
         }
-
 
         private void TaskDataGridView_MouseDown(object sender, MouseEventArgs e)
         {
@@ -109,9 +106,9 @@ namespace ClassTaskLibrary
             }
         }
 
-
         private void PriorityGroupBox_Enter(object sender, EventArgs e)
         {
+            
             if (this.HighPriorityButton.Checked)
             {
                 this.updatePriority(priorityHigh);
@@ -119,13 +116,11 @@ namespace ClassTaskLibrary
             else if (this.MediumPriorityButton.Checked)
             {
                 this.updatePriority(priorityMedium);
-
             }
-            else if(this.LowPriorityButton.Checked)
+            else if (this.LowPriorityButton.Checked)
             {
                 this.updatePriority(priorityLow);
             }
-
         }
 
         private void updatePriority(int newPriority)
@@ -136,28 +131,25 @@ namespace ClassTaskLibrary
 
         private void checkAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           this.updateAllCheckBoxesInGridView(false, true);
+            this.updateAllCheckBoxesInGridView( true);
         }
 
-        private void updateAllCheckBoxesInGridView(bool originalValue, bool newValue)
+        private void updateAllCheckBoxesInGridView(bool newValue)
         {
             foreach (DataGridViewRow row in this.CourseTasksGridView.Rows)
             {
-                DataGridViewCheckBoxCell currentCheckBox = (DataGridViewCheckBoxCell)row.Cells[0];
-                if (currentCheckBox.Selected == originalValue)
-                {
-                    currentCheckBox.Value = newValue;
-                    currentCheckBox.Selected = newValue;
-                }
+                var currentCheckBox = (DataGridViewCheckBoxCell) row.Cells[0];
+
+                currentCheckBox.Value = newValue;
+                currentCheckBox.Selected = newValue;
             }
         }
 
-
-
         private void unCheckAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.updateAllCheckBoxesInGridView(true, false);
-
+            this.updateAllCheckBoxesInGridView(false);
         }
+
+        #endregion
     }
 }

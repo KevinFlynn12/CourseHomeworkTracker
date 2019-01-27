@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using FlynnAssignment1.Helper;
+using FlynnAssignment1.View.Helper;
 
-namespace FlynnAssignment1.Model
+namespace FlynnAssignment1.View.Model
 {
     /// <summary>
     ///     Class for store information relating to the course
@@ -13,7 +13,7 @@ namespace FlynnAssignment1.Model
     {
         #region Data members
 
-        private readonly IList<String> Tasks;
+        public IList<String> Tasks { get; set; }
 
         #endregion
 
@@ -22,6 +22,8 @@ namespace FlynnAssignment1.Model
         public string CourseTitle { get; set; }
 
         public Priority Priority { get; set; }
+
+
 
         public int Count => this.Tasks.Count;
 
@@ -46,6 +48,10 @@ namespace FlynnAssignment1.Model
             this.CourseTitle = courseTitle;
             this.Priority = Priority.Low;
         }
+
+       
+
+
 
         public int IndexOf(string item)
         {
