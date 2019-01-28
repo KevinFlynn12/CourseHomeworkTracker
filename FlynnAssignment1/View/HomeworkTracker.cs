@@ -6,7 +6,6 @@ using ClassTaskLibrary;
 using ClassTaskLibrary.Event;
 using FlynnAssignment1.View.Controller;
 using FlynnAssignment1.View.Helper;
-using FlynnAssignment1.View.Model;
 
 namespace FlynnAssignment1.View
 {
@@ -40,9 +39,8 @@ namespace FlynnAssignment1.View
             this.InitializeComponent();
             Text = "Homework Tracker by Kevin Flynn";
             this.controller = new HomeworkTrackerController();
-
-            this.InitializeEventHandlers();
             this.ClassesTabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
+            this.InitializeEventHandlers();
             this.CHEM1212.Tag = Priority.Low;
             this.ENGL1102.Tag = Priority.Low;
             this.CS3202.Tag = Priority.Low;
@@ -52,7 +50,6 @@ namespace FlynnAssignment1.View
             this.CHEM1212Info.LoadTasks(this.preloadedChem1212Tasks);
             this.CreateAllCourses();
             this.ClassInformation.Text = this.controller.UpdateClassesOutput();
-
         }
 
         #endregion
@@ -68,12 +65,11 @@ namespace FlynnAssignment1.View
             this.ENGL1102Info.ChangeHasOccured += this.processTaskChange;
             this.ENGL1102Info.ChangeHasOccured += this.CreateTabColor_OnChange;
             this.ClassesTabControl.DrawItem += this.coursesTabPage_DrawItem;
-            
-
         }
 
         private void processTaskChange(object sender, CourseInfoEventArgs e)
         {
+    
             this.controller.UpdateSelectedCoursesTasks(this.ClassesTabControl.SelectedTab.Text, e.Tasks, e.Priority);
             this.ClassInformation.Text = this.controller.UpdateClassesOutput();
         }
@@ -123,7 +119,7 @@ namespace FlynnAssignment1.View
             this.determineCurrentTabsPriority(e);
             this.ClassesTabControl.Invalidate(this.ClassesTabControl.GetTabRect(this.ClassesTabControl.SelectedIndex));
             this.controller.UpdateSelectedCoursesTasks(this.ClassesTabControl.SelectedTab.Text, e.Tasks, e.Priority);
-            this.controller.UpdateClassesOutput();
+            this.ClassInformation.Text = this.controller.UpdateClassesOutput();
         }
 
         private void determineCurrentTabsPriority(CourseInfoEventArgs e)
@@ -142,50 +138,48 @@ namespace FlynnAssignment1.View
             }
         }
 
-
-        #endregion
-
-        private void OpenHomeworkTrackerFile_Click(object sender, System.EventArgs e)
+        private void OpenHomeworkTrackerFile_Click(object sender, EventArgs e)
         {
             var fileSelector = new OpenFileDialog();
-            string filter = "CSV file (*.csv)|*.csv";
+            var filter = "CSV file (*.csv)|*.csv";
             fileSelector.Filter = filter;
             fileSelector.FilterIndex = 1;
             fileSelector.Multiselect = false;
             var selectedOpenFile = fileSelector.ShowDialog() == DialogResult.OK;
             if (selectedOpenFile)
-            {                
-               var fileInfo = File.ReadAllLines(fileSelector.FileName);
-               this.controller.LoadCoursesFromCSVFile(fileInfo);
-               
-               this.LoadNewPrioritiesFromCSVFile(this.CS3202Info, this.CS3202.Text);
-               this.LoadNewPrioritiesFromCSVFile(this.CHEM1212Info, this.CHEM1212.Text);
-               this.LoadNewPrioritiesFromCSVFile(this.ENGL1102Info, this.ENGL1102.Text);
-               this.ClassesTabControl.Invalidate(this.ClassesTabControl.GetTabRect(this.ClassesTabControl.SelectedIndex));
+            {
+                var fileInfo = File.ReadAllLines(fileSelector.FileName);
+                this.controller.LoadCoursesFromCSVFile(fileInfo);
+
+                this.LoadNewPrioritiesFromCSVFile(this.CS3202Info, this.CS3202.Text);
+                this.LoadNewPrioritiesFromCSVFile(this.CHEM1212Info, this.CHEM1212.Text);
+                this.LoadNewPrioritiesFromCSVFile(this.ENGL1102Info, this.ENGL1102.Text);
+                this.ClassesTabControl.Invalidate(
+                    this.ClassesTabControl.GetTabRect(this.ClassesTabControl.SelectedIndex));
 
                 this.LoadNewTasksFromCSVFile();
-            }
 
+                this.ClassInformation.Text = this.controller.UpdateClassesOutput();
+
+            }
         }
 
         private void LoadNewPrioritiesFromCSVFile(CourseInfo currentCourseInfo, string currentCoursesTitle)
         {
-
             var coursesPriority = this.controller.FindMatchingCoursesPriority(currentCoursesTitle);
             if (coursesPriority == Priority.High)
             {
-                currentCourseInfo.HightPriorityRadioButton.Checked = true;
+                currentCourseInfo.HighPriorityButtonSelected = true;
             }
             else if (coursesPriority == Priority.Medium)
             {
-                currentCourseInfo.MediumPriorityRadioButton.Checked = true;
+                currentCourseInfo.MediumPriorityButtonSelected = true;
             }
             else if (coursesPriority == Priority.Low)
             {
-                currentCourseInfo.LowtPriorityRadioButton.Checked = true;
+                currentCourseInfo.LowPriorityButtonSelected = true;
             }
         }
-       
 
         private void LoadNewTasksFromCSVFile()
         {
@@ -195,19 +189,15 @@ namespace FlynnAssignment1.View
             this.CS3202Info.LoadTasks(CS3202newTasks);
             this.CHEM1212Info.LoadTasks(CHEM1212newTasks);
             this.ENGL1102Info.LoadTasks(ENGL1102NewTasks);
+
+
         }
 
-       
-
-
-
-
-
-        private void saveHomeworkTracker_Click(object sender, System.EventArgs e)
+        private void saveHomeworkTracker_Click(object sender, EventArgs e)
         {
             var newCsvFile = this.controller.WriteCSVFile();
             var saveFileDialog = new SaveFileDialog();
-            string filter = "CSV file (*.csv)|*.csv";
+            var filter = "CSV file (*.csv)|*.csv";
             saveFileDialog.Filter = filter;
 
             var selectedSaveFile = saveFileDialog.ShowDialog() == DialogResult.OK;
@@ -215,7 +205,8 @@ namespace FlynnAssignment1.View
             {
                 File.WriteAllText(saveFileDialog.FileName, newCsvFile);
             }
-
         }
+
+        #endregion
     }
 }

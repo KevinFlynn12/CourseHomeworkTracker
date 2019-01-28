@@ -17,22 +17,22 @@ namespace ClassTaskLibrary
         private static readonly int checkBoxIndex = 0;
         public int SelectedPriority { get; private set; }
 
-
-        public RadioButton HightPriorityRadioButton
+        public bool HighPriorityButtonSelected
         {
-            get => this.HighPriorityButton;
-            set => this.HighPriorityButton = value;
-        }
-        public RadioButton MediumPriorityRadioButton
-        {
-            get => this.MediumPriorityButton;
-            set => this.MediumPriorityButton = value;
+            get => this.HighPriorityButton.Checked;
+            set=> this.HighPriorityButton.Checked = value;
         }
 
-        public RadioButton LowtPriorityRadioButton
+        public bool MediumPriorityButtonSelected
         {
-            get => this.LowPriorityButton;
-            set => this.LowPriorityButton = value;
+            get => this.MediumPriorityButton.Checked;
+            set => this.MediumPriorityButton.Checked = value;
+        }
+
+        public bool LowPriorityButtonSelected
+        {
+            get => this.LowPriorityButton.Checked;
+            set => this.LowPriorityButton.Checked = value;
         }
 
 
@@ -43,11 +43,12 @@ namespace ClassTaskLibrary
         public CourseInfo()
         {
             this.InitializeComponent();
-            this.LowPriorityButton.Checked = true;
             this.SelectedPriority = priorityLow;
-            this.HightPriorityRadioButton.CheckedChanged += this.PriorityGroupBox_Enter;
-            this.MediumPriorityRadioButton.CheckedChanged += this.PriorityGroupBox_Enter;
-            this.LowtPriorityRadioButton.CheckedChanged += this.PriorityGroupBox_Enter;
+            this.HighPriorityButton.CheckedChanged += this.PriorityGroupBox_Enter;
+
+
+            this.MediumPriorityButton.CheckedChanged += this.PriorityGroupBox_Enter;
+            this.LowPriorityButton.CheckedChanged += this.PriorityGroupBox_Enter;
             this.CourseTasksGridView.MouseDown += this.TaskDataGridView_MouseDown;
             
         }
@@ -100,7 +101,10 @@ namespace ClassTaskLibrary
 
         private void PriorityHasChanged(int changedPriority)
         {
-            var data = new CourseInfoEventArgs {Priority = changedPriority};
+            var data = new CourseInfoEventArgs {
+                Priority = changedPriority,
+                Tasks = this.GenerateTasks()
+            };
 
             this.ChangeHasOccured?.Invoke(this, data);
         }
@@ -154,16 +158,15 @@ namespace ClassTaskLibrary
 
         private void PriorityGroupBox_Enter(object sender, EventArgs e)
         {
-            
-            if (this.HightPriorityRadioButton.Checked)
+            if (this.HighPriorityButton.Checked)
             {
                 this.updatePriority(priorityHigh);
             }
-            else if (this.MediumPriorityRadioButton.Checked)
+            else if (this.MediumPriorityButton.Checked)
             {
                 this.updatePriority(priorityMedium);
             }
-            else if (this.LowtPriorityRadioButton.Checked)
+            else if (this.LowPriorityButton.Checked)
             {
                 this.updatePriority(priorityLow);
             }
