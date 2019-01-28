@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -78,7 +79,24 @@ namespace FlynnAssignment1.View.Controller
 
 
      
+        public Color DetermineColor(Priority selectedPriority)
+        {
+            var selectedColor = new Color();
+            if (selectedPriority == Priority.High)
+            {
+                selectedColor = Color.Red;
+            }
+            else if (selectedPriority == Priority.Medium)
+            {
+                selectedColor = Color.Yellow;
+            }
+            else
+            {
+                selectedColor = default(Color);
+            }
 
+            return selectedColor;
+        }
 
 
 

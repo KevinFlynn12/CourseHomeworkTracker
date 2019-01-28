@@ -44,7 +44,8 @@ namespace FlynnAssignment1.View
             this.CHEM1212.Tag = Priority.Low;
             this.ENGL1102.Tag = Priority.Low;
             this.CS3202.Tag = Priority.Low;
-
+            this.KeyPreview = true;
+            this.KeyDown += this.HomeWorkTracker_KeyDown;
             this.CS3202Info.LoadTasks(this.preloadedCs3202Tasks);
             this.ENGL1102Info.LoadTasks(this.preloadedEngl1102Tasks);
             this.CHEM1212Info.LoadTasks(this.preloadedChem1212Tasks);
@@ -87,7 +88,7 @@ namespace FlynnAssignment1.View
         private void coursesTabPage_DrawItem(object sender, DrawItemEventArgs e)
         {
             var page = this.ClassesTabControl.TabPages[e.Index];
-            var determinedColor = this.DetermineColor((Priority) page.Tag);
+            var determinedColor = this.controller.DetermineColor((Priority) page.Tag);
             e.Graphics.FillRectangle(new SolidBrush(determinedColor), e.Bounds);
             var tabBounds = e.Bounds;
             var yOffset = e.State == DrawItemState.Selected ? -2 : 1;
@@ -95,24 +96,7 @@ namespace FlynnAssignment1.View
             TextRenderer.DrawText(e.Graphics, page.Text, Font, tabBounds, page.ForeColor);
         }
 
-        private Color DetermineColor(Priority selectedPriority)
-        {
-            var selectedColor = new Color();
-            if (selectedPriority == Priority.High)
-            {
-                selectedColor = Color.Red;
-            }
-            else if (selectedPriority == Priority.Medium)
-            {
-                selectedColor = Color.Yellow;
-            }
-            else
-            {
-                selectedColor = default(Color);
-            }
-
-            return selectedColor;
-        }
+       
 
         private void CreateTabColor_OnChange(object sender, CourseInfoEventArgs e)
         {
@@ -140,6 +124,16 @@ namespace FlynnAssignment1.View
 
         private void OpenHomeworkTrackerFile_Click(object sender, EventArgs e)
         {
+            this.handleOpeningFile();
+        }
+
+
+        
+
+
+
+        private void handleOpeningFile()
+        {
             var fileSelector = new OpenFileDialog();
             var filter = "CSV file (*.csv)|*.csv";
             fileSelector.Filter = filter;
@@ -150,19 +144,40 @@ namespace FlynnAssignment1.View
             {
                 var fileInfo = File.ReadAllLines(fileSelector.FileName);
                 this.controller.LoadCoursesFromCSVFile(fileInfo);
+              
 
                 this.LoadNewPrioritiesFromCSVFile(this.CS3202Info, this.CS3202.Text);
                 this.LoadNewPrioritiesFromCSVFile(this.CHEM1212Info, this.CHEM1212.Text);
                 this.LoadNewPrioritiesFromCSVFile(this.ENGL1102Info, this.ENGL1102.Text);
-                this.ClassesTabControl.Invalidate(
-                    this.ClassesTabControl.GetTabRect(this.ClassesTabControl.SelectedIndex));
+
+                
+               
 
                 this.LoadNewTasksFromCSVFile();
 
                 this.ClassInformation.Text = this.controller.UpdateClassesOutput();
-
             }
         }
+
+        private void HomeWorkTracker_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.O)
+            {
+                this.handleOpeningFile();
+            }
+            else if (e.Control && e.KeyCode == Keys.S)
+            {
+                this.handleSavingFile();
+            }
+        }
+
+
+
+
+
+
+
+
 
         private void LoadNewPrioritiesFromCSVFile(CourseInfo currentCourseInfo, string currentCoursesTitle)
         {
@@ -189,11 +204,14 @@ namespace FlynnAssignment1.View
             this.CS3202Info.LoadTasks(CS3202newTasks);
             this.CHEM1212Info.LoadTasks(CHEM1212newTasks);
             this.ENGL1102Info.LoadTasks(ENGL1102NewTasks);
-
-
         }
 
         private void saveHomeworkTracker_Click(object sender, EventArgs e)
+        {
+            this.handleSavingFile();
+        }
+
+        private void handleSavingFile()
         {
             var newCsvFile = this.controller.WriteCSVFile();
             var saveFileDialog = new SaveFileDialog();

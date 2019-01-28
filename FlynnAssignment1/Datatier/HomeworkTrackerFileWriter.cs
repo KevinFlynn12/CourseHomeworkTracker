@@ -31,14 +31,14 @@ namespace FlynnAssignment1.View.Datatier
 
 
 
-        private static String writeCoursesTask(Course selectedCourse)
+        private static string writeCoursesTask(Course selectedCourse)
         {
             var output = string.Empty;
             foreach (var currentTask in selectedCourse)
             {
                 var firstTask = 0;
                 var notFirstTask = selectedCourse[firstTask] != currentTask;
-                if (notFirstTask)
+                if (notFirstTask && currentTask != string.Empty)
                 {
                     output += Comma;
                     output += currentTask;

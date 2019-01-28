@@ -46,7 +46,6 @@ namespace ClassTaskLibrary
             this.SelectedPriority = priorityLow;
             this.HighPriorityButton.CheckedChanged += this.PriorityGroupBox_Enter;
 
-
             this.MediumPriorityButton.CheckedChanged += this.PriorityGroupBox_Enter;
             this.LowPriorityButton.CheckedChanged += this.PriorityGroupBox_Enter;
             this.CourseTasksGridView.MouseDown += this.TaskDataGridView_MouseDown;
@@ -78,13 +77,16 @@ namespace ClassTaskLibrary
 
                 row.Cells[textBoxIndex].Value = currentTask;
             }
+
+            this.TaskHasChanged(this.GenerateTasks());
+
+
         }
 
         private void clearAllCurrentTasks()
         {
             foreach(DataGridViewRow row in this.CourseTasksGridView.Rows)
             {
-                var checkBoxCell = (DataGridViewCheckBoxCell)row.Cells[checkBoxIndex];
                 var textBoxCell = (DataGridViewTextBoxCell)row.Cells[textBoxIndex];
                 if (textBoxCell.Value != null)
                 {
@@ -146,6 +148,9 @@ namespace ClassTaskLibrary
         {
             this.TaskHasChanged(this.GenerateTasks());
         }
+        
+
+
 
         private void TaskDataGridView_MouseDown(object sender, MouseEventArgs e)
         {

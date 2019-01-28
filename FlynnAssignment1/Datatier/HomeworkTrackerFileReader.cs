@@ -17,15 +17,11 @@ namespace FlynnAssignment1.View.Datatier
     {
         private const string Commas = ",";
         private const int priority = 1;
-        private const int BeginingTask = 2;
+        private const int BeginningTask = 2;
         private const int CourseName = 0;
 
 
-        /// <summary>
-        ///     Reads the CSV file.
-        /// </summary>
-        /// <param name="inputFile">The input file.</param>
-        /// <returns></returns>
+     
         public static AllClasses ParseHomeWorkTrackerCSVFile(string[] allRows)
         {
             var newClasses = new AllClasses();
@@ -57,10 +53,12 @@ namespace FlynnAssignment1.View.Datatier
         private static IList<String> BuildClassesTasks(string[] coursesLine)
         {
             var coursesTasks = new List<String>();
-            for (int i = BeginingTask; i < coursesLine.Length; i++)
+            for (int i = BeginningTask; i < coursesLine.Length; i++)
             {
                 if (coursesLine[i] != String.Empty)
                 {
+                    var name = coursesLine[i];
+
                     coursesTasks.Add(coursesLine[i]);
                 }
             }

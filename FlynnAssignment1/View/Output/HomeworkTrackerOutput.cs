@@ -13,10 +13,11 @@ namespace FlynnAssignment1.View.View.Output
     public static class HomeworkTrackerOutput
     {
         private static string BorderLine = "------------------------------------------------" + Environment.NewLine;
-        private static string Indent = "     ";
+        private static readonly string Indent = "     ";
 
-        /// <summary>Builds the output for the allClasses method</summary>
+        /// <summary>Builds the output for the allClasses method ranked by priority</summary>
         /// <param name="Courses"> Collection of classes</param>
+        /// <returns>A string of all Courses tasks ranked by priority</returns>
         public static string BuildCoursesHomeworkByPriority(AllClasses Classes)
         {
             var output = buildPriorityOutput(Classes.FindMatchingCourses(Priority.High), "High");
@@ -32,7 +33,7 @@ namespace FlynnAssignment1.View.View.Output
         {
             if (!selectedPriorityClasses.Any())
             {
-                return String.Empty;
+                return string.Empty;
             }
 
 
