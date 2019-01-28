@@ -14,7 +14,7 @@ namespace FlynnAssignment1.DataTier
 
         #region Methods
 
-        /// <summary>Writes csv file based on the allClasses method you pass in</summary>
+        /// <summary>Writes csv file based on the AllClasses method you pass in</summary>
         /// <param name="allClasses">selected AllClasses object</param>
         /// <returns>string representation of all courses and courses information found in object passed in</returns>
         public static string WriteCsvFile(AllClasses allClasses)

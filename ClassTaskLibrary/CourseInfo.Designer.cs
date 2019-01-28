@@ -60,6 +60,8 @@ namespace ClassTaskLibrary
             this.LowPriorityButton.TabStop = true;
             this.LowPriorityButton.Text = "Low";
             this.LowPriorityButton.UseVisualStyleBackColor = true;
+            
+            this.CourseTasksGridView.MouseDown += this.TaskDataGridView_MouseDown;
             // 
             // MediumPriorityButton
             // 

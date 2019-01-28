@@ -1,2 +1,5 @@
-Open File method does is not fully functional buttons show where they are suppose to be but tab only change color if you click on text box and task/ text do not show new tasks
+Open File method is not fully functional. 
+The Buttons are pressed correctly but both the tab colors, the text field and the grid view text fields does show correctly. 
+The tabs do update as well as the text field if you select a text field but the task are still not accurate to the file loaded in. 
+
 If you click the buttons in rapid succession the task will sometimes will not update text field correctly

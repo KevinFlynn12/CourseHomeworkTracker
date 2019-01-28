@@ -31,7 +31,7 @@ namespace FlynnAssignment1.Model
         #region Constructors
 
 
-        /// <summary>intalizes a Course object</summary>
+        /// <summary>initializes a Course object</summary>
         /// <param name="courseTitle"> title of the course</param>
         public Course(string courseTitle)
         {

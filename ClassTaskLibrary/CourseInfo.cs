@@ -44,6 +44,7 @@ namespace ClassTaskLibrary
 
         #region Constructors
 
+        /// <summary>initializes the courseInfo class</summary>
         public CourseInfo()
         {
             this.InitializeComponent();
@@ -81,7 +82,7 @@ namespace ClassTaskLibrary
                 row.Cells[textBoxIndex].Value = currentTask;
             }
 
-            this.taskHasChanged(this.GenerateTasks());
+            this.courseInformationHasChanged();
         }
 
         private void clearAllCurrentTasks()
@@ -96,25 +97,17 @@ namespace ClassTaskLibrary
             }
         }
 
-        private void priorityHasChanged(int changedPriority)
+        private void courseInformationHasChanged()
         {
             var data = new CourseInfoEventArgs {
-                Priority = changedPriority,
+                Priority = this.selectedPriority,
                 Tasks = this.GenerateTasks()
             };
 
             this.ChangeHasOccured?.Invoke(this, data);
         }
 
-        private void taskHasChanged(List<string> changedTask)
-        {
-            var data = new CourseInfoEventArgs {
-                Tasks = changedTask,
-                Priority = this.selectedPriority
-            };
-
-            this.ChangeHasOccured?.Invoke(this, data);
-        }
+       
 
         /// <summary>Generates tasks CoursesTasksGridView</summary>
         /// <returns>list all strings in the grid view</returns>
@@ -145,7 +138,7 @@ namespace ClassTaskLibrary
 
         private void CourseTasksGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.taskHasChanged(this.GenerateTasks());
+            this.courseInformationHasChanged();
         }
 
         private void TaskDataGridView_MouseDown(object sender, MouseEventArgs e)
@@ -161,28 +154,17 @@ namespace ClassTaskLibrary
         {
             if (this.HighPriorityButton.Checked)
             {
-                this.updatePriority(PriorityHigh);
+                this.selectedPriority = PriorityHigh;
             }
             else if (this.MediumPriorityButton.Checked)
             {
-                this.updatePriority(PriorityMedium);
+                this.selectedPriority = PriorityMedium;
             }
             else if (this.LowPriorityButton.Checked)
             {
-                this.updatePriority(PriorityLow);
+                this.selectedPriority = PriorityLow;
             }
-
-
-            if (this.HighPriorityButtonSelected)
-            {
-                this.updatePriority(PriorityHigh);
-            }
-        }
-
-        private void updatePriority(int newPriority)
-        {
-            this.priorityHasChanged(newPriority);
-            this.selectedPriority = newPriority;
+            this.courseInformationHasChanged();
         }
 
         private void checkAllTasksMenuItem_Click(object sender, EventArgs e)

@@ -1,6 +1,6 @@
 ﻿namespace FlynnAssignment1
 {
-    partial class Form1
+    partial class CourseInfo
     {
         /// <summary>
         /// Required designer variable.
@@ -187,7 +187,7 @@
             this.CHEM1212Info.Size = new System.Drawing.Size(494, 226);
             this.CHEM1212Info.TabIndex = 0;
             // 
-            // Form1
+            // CourseInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -199,8 +199,8 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "CourseInfo";
+            this.Text = "CourseInfo";
             this.CS3202.ResumeLayout(false);
             this.CHEM1212.ResumeLayout(false);
             this.ENGL1102.ResumeLayout(false);

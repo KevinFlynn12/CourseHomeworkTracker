@@ -10,10 +10,12 @@ namespace FlynnAssignment1.View.Output
 
 
 
+    /// <summary>Creates output for homeworkTracker
+    /// </summary>
     public static class HomeworkTrackerOutput
     {
         private static string BorderLine = "------------------------------------------------" + Environment.NewLine;
-        private static readonly string Indent = "     ";
+        private const string Indent = "     ";
 
 
         /// <summary>Builds output based object classes passed in</summary>
