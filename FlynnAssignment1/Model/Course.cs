@@ -1,35 +1,26 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using FlynnAssignment1.View.Helper;
+using FlynnAssignment1.Helper;
 
-namespace FlynnAssignment1.View.Model
+namespace FlynnAssignment1.Model
 {
     /// <summary>
     ///     Class for store information relating to the course
     /// </summary>
-    public class Course : IList<String>
+    public class Course : IList<string>
     {
-        #region Data members
-
-        public IList<String> Tasks { get; set; }
-
-        #endregion
-
         #region Properties
 
+        public IList<string> Tasks { get; set; }
         public string CourseTitle { get; set; }
 
         public Priority Priority { get; set; }
-
-
 
         public int Count => this.Tasks.Count;
 
         public bool IsReadOnly => this.Tasks.IsReadOnly;
 
-        public String this[int index]
+        public string this[int index]
         {
             get => this.Tasks[index];
             set => this.Tasks[index] = value;
@@ -39,80 +30,92 @@ namespace FlynnAssignment1.View.Model
 
         #region Constructors
 
-        /// <summary>Initalizes the instances of Course </summary>
-        /// <param name="title"></param>
-        /// <param name="task"></param>
+
+        /// <summary>intalizes a Course object</summary>
+        /// <param name="courseTitle"> title of the course</param>
         public Course(string courseTitle)
         {
-            this.Tasks = new List<String>();
+            this.Tasks = new List<string>();
             this.CourseTitle = courseTitle;
             this.Priority = Priority.Low;
         }
-
-       
-
-
-
-        public int IndexOf(string item)
-        {
-            return Tasks.IndexOf(item);
-        }
-
-        public void Insert(int index, string item)
-        {
-            Tasks.Insert(index, item);
-        }
-
-        public void RemoveAt(int index)
-        {
-            Tasks.RemoveAt(index);
-        }
-
-        public void Add(string item)
-        {
-            Tasks.Add(item);
-        }
-
-        public void Clear()
-        {
-            Tasks.Clear();
-        }
-
-        public bool Contains(string item)
-        {
-            return Tasks.Contains(item);
-        }
-
-        public void CopyTo(string[] array, int arrayIndex)
-        {
-            Tasks.CopyTo(array, arrayIndex);
-        }
-
-        public bool Remove(string item)
-        {
-            return Tasks.Remove(item);
-        }
-
-        public IEnumerator<string> GetEnumerator()
-        {
-            return Tasks.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return Tasks.GetEnumerator();
-        }
-
-
-            
 
         #endregion
 
         #region Methods
 
+        /// <summary>Gets the index of item in Course</summary>
+        /// <param name="item"> Item you are searching for</param>
+        public int IndexOf(string item)
+        {
+            return this.Tasks.IndexOf(item);
+        }
 
+        /// <summary>Inserts item into the collection</summary>
+        /// <param name="index">index the item will be located</param>
+        /// <param name="item"> item you wish to insert</param>
+        public void Insert(int index, string item)
+        {
+            this.Tasks.Insert(index, item);
+        }
 
+        /// <summary>Removes the item at the index selected</summary>
+        /// <param name="index">index of item</param>
+        public void RemoveAt(int index)
+        {
+            this.Tasks.RemoveAt(index);
+        }
 
+        /// <summary>Adds item into collection</summary>
+        /// <param name="item">Item you desire to add</param>
+        public void Add(string item)
+        {
+            this.Tasks.Add(item);
+        }
+
+        /// <summary>Clears all items in collection</summary>
+        public void Clear()
+        {
+            this.Tasks.Clear();
+        }
+
+        /// <summary>Checks if item is in the collection</summary>
+        /// <param name="item">item searched</param>
+        /// <returns>true if it does and false if otherwise</returns>
+        public bool Contains(string item)
+        {
+            return this.Tasks.Contains(item);
+        }
+
+        /// <summary>Copies array to selected index</summary>
+        /// <param name="array">selected array</param>
+        /// <param name="arrayIndex">index of the array</param>
+        public void CopyTo(string[] array, int arrayIndex)
+        {
+            this.Tasks.CopyTo(array, arrayIndex);
+        }
+
+        /// <summary>removes item if such item is in collection</summary>
+        /// <param name="item"> selected item wished to be removed</param>
+        /// <returns>true if it does and false if other wise </returns>
+        public bool Remove(string item)
+        {
+            return this.Tasks.Remove(item);
+        }
+
+        /// <summary>Gets the Enumerator</summary>
+        /// <returns>the Enumerator</returns>
+        public IEnumerator<string> GetEnumerator()
+        {
+            return this.Tasks.GetEnumerator();
+        }
+
+        /// <summary>gets enumerator</summary>
+        /// <returns> getEnumerator</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.Tasks.GetEnumerator();
+        }
 
         #endregion
     }

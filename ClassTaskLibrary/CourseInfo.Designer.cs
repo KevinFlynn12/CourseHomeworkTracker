@@ -147,7 +147,7 @@ namespace ClassTaskLibrary
             this.unCheckAllToolStripMenuItem.Name = "unCheckAllToolStripMenuItem";
             this.unCheckAllToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.unCheckAllToolStripMenuItem.Text = "UnCheck All";
-            this.unCheckAllToolStripMenuItem.Click += new System.EventHandler(this.unCheckAllTasksMenuItem_Click);
+            this.unCheckAllToolStripMenuItem.Click += new System.EventHandler(this.UnCheckAllTasksMenuItem_Click);
             // 
             // CourseInfo
             // 

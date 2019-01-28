@@ -1,4 +1,4 @@
-﻿namespace FlynnAssignment1.View
+﻿namespace FlynnAssignment1
 {
     partial class Form1
     {

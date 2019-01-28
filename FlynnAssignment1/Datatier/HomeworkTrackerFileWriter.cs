@@ -1,35 +1,34 @@
 ﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using FlynnAssignment1.View.Controller;
-using FlynnAssignment1.View.Helper;
-using FlynnAssignment1.View.Model;
+using FlynnAssignment1.Model;
 
-namespace FlynnAssignment1.View.Datatier
+namespace FlynnAssignment1.DataTier
 {
+    /// <summary>Class writes file based on the class AllClasses you based in</summary>
     public static class HomeworkTrackerFileWriter
     {
-        private static string Comma = ",";
+        #region Data members
 
-    
-        public static string WriteCSVFile(AllClasses allClasses)
+        private static readonly string Comma = ",";
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>Writes csv file based on the allClasses method you pass in</summary>
+        /// <param name="allClasses">selected AllClasses object</param>
+        /// <returns>string representation of all courses and courses information found in object passed in</returns>
+        public static string WriteCsvFile(AllClasses allClasses)
         {
-            var output = String.Empty;
+            var output = string.Empty;
             foreach (var currentClass in allClasses)
             {
                 output += currentClass.CourseTitle + Comma;
                 output += currentClass.Priority + Comma;
                 output += writeCoursesTask(currentClass) + Environment.NewLine;
             }
+
             return output;
         }
-
-
 
         private static string writeCoursesTask(Course selectedCourse)
         {
@@ -52,30 +51,6 @@ namespace FlynnAssignment1.View.Datatier
             return output;
         }
 
-
-
-
-        
-
-
-        private sealed class ExtendedStringWriter : StringWriter
-        {
-            #region Properties
-
-            public override Encoding Encoding { get; }
-
-            #endregion
-
-            #region Constructors
-
-            public ExtendedStringWriter(StringBuilder builder, Encoding desiredEncoding)
-                : base(builder)
-            {
-                this.Encoding = desiredEncoding;
-            }
-
-            #endregion
-        }
+        #endregion
     }
-
 }

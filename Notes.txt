@@ -1,0 +1,2 @@
+Open File method does is not fully functional buttons show where they are suppose to be but tab only change color if you click on text box and task/ text do not show new tasks
+If you click the buttons in rapid succession the task will sometimes will not update text field correctly

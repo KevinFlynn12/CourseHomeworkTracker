@@ -4,19 +4,19 @@ using System.IO;
 using System.Windows.Forms;
 using ClassTaskLibrary;
 using ClassTaskLibrary.Event;
-using FlynnAssignment1.View.Controller;
-using FlynnAssignment1.View.Helper;
+using FlynnAssignment1.Controller;
+using FlynnAssignment1.Helper;
 
-namespace FlynnAssignment1.View
+namespace FlynnAssignment1
 {
     public partial class Form1 : Form
     {
         #region Data members
 
         private readonly HomeworkTrackerController controller;
-        private readonly int CS3202TabIndex = 0;
-        private readonly int ENGL1102TabIndex = 1;
-        private readonly int CHEM1212TabIndex = 2;
+        private int Cs3202TabPage = 0;
+        private int Engl1102TabPage = 1;
+        private int Chem1212TabPage = 2;
 
         private readonly string[] preloadedCs3202Tasks = {
             "Study", "Take Quiz"
@@ -37,19 +37,19 @@ namespace FlynnAssignment1.View
         public Form1()
         {
             this.InitializeComponent();
-            Text = "Homework Tracker by Kevin Flynn";
+            this.Text = "Homework Tracker by Kevin Flynn";
             this.controller = new HomeworkTrackerController();
             this.ClassesTabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
             this.InitializeEventHandlers();
             this.CHEM1212.Tag = Priority.Low;
             this.ENGL1102.Tag = Priority.Low;
             this.CS3202.Tag = Priority.Low;
-            this.KeyPreview = true;
-            this.KeyDown += this.HomeWorkTracker_KeyDown;
+            KeyPreview = true;
+            KeyDown += this.HomeWorkTracker_KeyDown;
             this.CS3202Info.LoadTasks(this.preloadedCs3202Tasks);
             this.ENGL1102Info.LoadTasks(this.preloadedEngl1102Tasks);
             this.CHEM1212Info.LoadTasks(this.preloadedChem1212Tasks);
-            this.CreateAllCourses();
+            this.createAllCourses();
             this.ClassInformation.Text = this.controller.UpdateClassesOutput();
         }
 
@@ -70,18 +70,17 @@ namespace FlynnAssignment1.View
 
         private void processTaskChange(object sender, CourseInfoEventArgs e)
         {
-    
             this.controller.UpdateSelectedCoursesTasks(this.ClassesTabControl.SelectedTab.Text, e.Tasks, e.Priority);
             this.ClassInformation.Text = this.controller.UpdateClassesOutput();
         }
 
-        private void CreateAllCourses()
+        private void createAllCourses()
         {
-            this.controller.CreateACourse(this.ClassesTabControl.TabPages[this.CS3202TabIndex].Text,
+            this.controller.CreateACourse(this.ClassesTabControl.TabPages[this.Cs3202TabPage].Text,
                 this.CS3202Info.GenerateTasks());
-            this.controller.CreateACourse(this.ClassesTabControl.TabPages[this.ENGL1102TabIndex].Text,
+            this.controller.CreateACourse(this.ClassesTabControl.TabPages[this.Engl1102TabPage].Text,
                 this.ENGL1102Info.GenerateTasks());
-            this.controller.CreateACourse(this.ClassesTabControl.TabPages[this.CHEM1212TabIndex].Text,
+            this.controller.CreateACourse(this.ClassesTabControl.TabPages[this.Chem1212TabPage].Text,
                 this.CHEM1212Info.GenerateTasks());
         }
 
@@ -95,8 +94,6 @@ namespace FlynnAssignment1.View
             tabBounds.Offset(1, yOffset);
             TextRenderer.DrawText(e.Graphics, page.Text, Font, tabBounds, page.ForeColor);
         }
-
-       
 
         private void CreateTabColor_OnChange(object sender, CourseInfoEventArgs e)
         {
@@ -127,11 +124,6 @@ namespace FlynnAssignment1.View
             this.handleOpeningFile();
         }
 
-
-        
-
-
-
         private void handleOpeningFile()
         {
             var fileSelector = new OpenFileDialog();
@@ -144,42 +136,18 @@ namespace FlynnAssignment1.View
             {
                 var fileInfo = File.ReadAllLines(fileSelector.FileName);
                 this.controller.LoadCoursesFromCSVFile(fileInfo);
-              
 
-                this.LoadNewPrioritiesFromCSVFile(this.CS3202Info, this.CS3202.Text);
-                this.LoadNewPrioritiesFromCSVFile(this.CHEM1212Info, this.CHEM1212.Text);
-                this.LoadNewPrioritiesFromCSVFile(this.ENGL1102Info, this.ENGL1102.Text);
+                this.loadNewPrioritiesFromCsvFile(this.CS3202Info, this.CS3202.Text);
+                this.loadNewPrioritiesFromCsvFile(this.CHEM1212Info, this.CHEM1212.Text);
+                this.loadNewPrioritiesFromCsvFile(this.ENGL1102Info, this.ENGL1102.Text);
 
-                
-               
-
-                this.LoadNewTasksFromCSVFile();
+                this.loadNewTasksFromCsvFile();
 
                 this.ClassInformation.Text = this.controller.UpdateClassesOutput();
             }
         }
 
-        private void HomeWorkTracker_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control && e.KeyCode == Keys.O)
-            {
-                this.handleOpeningFile();
-            }
-            else if (e.Control && e.KeyCode == Keys.S)
-            {
-                this.handleSavingFile();
-            }
-        }
-
-
-
-
-
-
-
-
-
-        private void LoadNewPrioritiesFromCSVFile(CourseInfo currentCourseInfo, string currentCoursesTitle)
+        private void loadNewPrioritiesFromCsvFile(CourseInfo currentCourseInfo, string currentCoursesTitle)
         {
             var coursesPriority = this.controller.FindMatchingCoursesPriority(currentCoursesTitle);
             if (coursesPriority == Priority.High)
@@ -196,14 +164,14 @@ namespace FlynnAssignment1.View
             }
         }
 
-        private void LoadNewTasksFromCSVFile()
+        private void loadNewTasksFromCsvFile()
         {
-            var CS3202newTasks = this.controller.FindMatchingCoursesTasks(this.CS3202.Text);
-            var CHEM1212newTasks = this.controller.FindMatchingCoursesTasks(this.CHEM1212.Text);
-            var ENGL1102NewTasks = this.controller.FindMatchingCoursesTasks(this.ENGL1102.Text);
-            this.CS3202Info.LoadTasks(CS3202newTasks);
-            this.CHEM1212Info.LoadTasks(CHEM1212newTasks);
-            this.ENGL1102Info.LoadTasks(ENGL1102NewTasks);
+            var cs3202NewTasks = this.controller.FindMatchingCoursesTasks(this.CS3202.Text);
+            var chem1212NewTasks = this.controller.FindMatchingCoursesTasks(this.CHEM1212.Text);
+            var engl1102NewTasks = this.controller.FindMatchingCoursesTasks(this.ENGL1102.Text);
+            this.CS3202Info.LoadTasks(cs3202NewTasks);
+            this.CHEM1212Info.LoadTasks(chem1212NewTasks);
+            this.ENGL1102Info.LoadTasks(engl1102NewTasks);
         }
 
         private void saveHomeworkTracker_Click(object sender, EventArgs e)
@@ -222,6 +190,18 @@ namespace FlynnAssignment1.View
             if (selectedSaveFile)
             {
                 File.WriteAllText(saveFileDialog.FileName, newCsvFile);
+            }
+        }
+
+        private void HomeWorkTracker_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.O)
+            {
+                this.handleOpeningFile();
+            }
+            else if (e.Control && e.KeyCode == Keys.S)
+            {
+                this.handleSavingFile();
             }
         }
 

@@ -64,6 +64,7 @@
     <Compile Include="Controller\HomeworkTrackerController.cs" />
     <Compile Include="Datatier\HomeworkTrackerFileReader.cs" />
     <Compile Include="Datatier\HomeworkTrackerFileWriter.cs" />
+    <Compile Include="Helper\PriorityConverter.cs" />
     <Compile Include="View\HomeworkTracker.cs">
       <SubType>Form</SubType>
     </Compile>

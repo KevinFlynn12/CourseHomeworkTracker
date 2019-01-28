@@ -1,64 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.IsolatedStorage;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Serialization;
-using FlynnAssignment1.View.Helper;
-using FlynnAssignment1.View.Model;
+﻿using System.Collections.Generic;
+using FlynnAssignment1.Helper;
+using FlynnAssignment1.Model;
 
-namespace FlynnAssignment1.View.Datatier
+namespace FlynnAssignment1.DataTier
 {
+    /// <summary>Class created to read csv file and </summary>
     public static class HomeworkTrackerFileReader
     {
+        #region Data members
+
         private const string Commas = ",";
-        private const int priority = 1;
+        private const int Priority = 1;
         private const int BeginningTask = 2;
         private const int CourseName = 0;
 
+        #endregion
 
-     
-        public static AllClasses ParseHomeWorkTrackerCSVFile(string[] allRows)
+        #region Methods
+
+        /// <summary>Parses array of string into a AllClasses object </summary>
+        /// <param name="allCsvRows">All rows of csv file</param>
+        /// <returns>object of AllClasses object</returns>
+        public static AllClasses ParseHomeWorkTrackerCsvFile(string[] allCsvRows)
         {
             var newClasses = new AllClasses();
-         
-            foreach (var currentRow in allRows)
+
+            foreach (var currentRow in allCsvRows)
             {
                 var currentLine = currentRow.Split(Commas.ToCharArray());
 
-                var newCourse = BuildNewCourse(currentLine);
+                var newCourse = buildNewCourse(currentLine);
                 newClasses.Add(newCourse);
-
             }
+
             return newClasses;
         }
 
-
-        private static Course BuildNewCourse(string[] currLine)
+        private static Course buildNewCourse(string[] currentLine)
         {
-            var newCourseName = currLine[CourseName];
+            var newCourseName = currentLine[CourseName];
             var course = new Course(newCourseName);
-            var newPriority = currLine[priority];
-            course.Priority = BuildPriority(newPriority);
-            var newTask = BuildClassesTasks(currLine);
+            var newPriority = currentLine[Priority];
+            course.Priority = PriorityConverter.BuildPriority(newPriority);
+            var newTask = buildClassesTasks(currentLine);
             course.Tasks = newTask;
-           
+
             return course;
         }
 
-        private static IList<String> BuildClassesTasks(string[] coursesLine)
+        private static IList<string> buildClassesTasks(string[] coursesLine)
         {
-            var coursesTasks = new List<String>();
-            for (int i = BeginningTask; i < coursesLine.Length; i++)
+            var coursesTasks = new List<string>();
+            for (var i = BeginningTask; i < coursesLine.Length; i++)
             {
-                if (coursesLine[i] != String.Empty)
+                if (coursesLine[i] != string.Empty)
                 {
-                    var name = coursesLine[i];
-
                     coursesTasks.Add(coursesLine[i]);
                 }
             }
@@ -66,26 +62,6 @@ namespace FlynnAssignment1.View.Datatier
             return coursesTasks;
         }
 
-
-        private static Priority BuildPriority(string priority)
-        {
-            Priority newPriority;
-            if (priority.Equals(Priority.High.ToString()))
-            {
-                newPriority = Priority.High;
-            }
-            else if (priority.Equals(Priority.Medium.ToString()))
-            {
-                newPriority = Priority.Medium;
-            }
-            else
-            {
-                newPriority = Priority.Low;
-            }
-
-            return newPriority;
-        }
-
-        
+        #endregion
     }
 }

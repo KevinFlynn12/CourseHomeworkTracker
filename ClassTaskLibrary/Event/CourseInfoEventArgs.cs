@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClassTaskLibrary.Event
 {
+    /// <summary>Event used to fire of course info</summary>
     public class CourseInfoEventArgs : EventArgs
     {
-        public int Priority { get; set; }
-        public ICollection<String> Tasks { get; set; }
+        #region Properties
 
+        public int Priority { get; set; }
+        public ICollection<string> Tasks { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>Initialize CourseInfoEventArg class</summary>
         public CourseInfoEventArgs()
         {
             this.Priority = 1;
         }
 
+        #endregion
     }
 }

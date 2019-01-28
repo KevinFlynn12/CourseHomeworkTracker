@@ -1,28 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using FlynnAssignment1.View.Helper;
-using FlynnAssignment1.View.Model;
-using Microsoft.SqlServer.Server;
-using Task = System.Threading.Tasks.Task;
+using FlynnAssignment1.Helper;
+using FlynnAssignment1.Model;
 
-namespace FlynnAssignment1.View.View.Output
+
+namespace FlynnAssignment1.View.Output
 {
+
+
+
     public static class HomeworkTrackerOutput
     {
         private static string BorderLine = "------------------------------------------------" + Environment.NewLine;
         private static readonly string Indent = "     ";
 
-        /// <summary>Builds the output for the allClasses method ranked by priority</summary>
-        /// <param name="Courses"> Collection of classes</param>
-        /// <returns>A string of all Courses tasks ranked by priority</returns>
-        public static string BuildCoursesHomeworkByPriority(AllClasses Classes)
+
+        /// <summary>Builds output based object classes passed in</summary>
+        /// <param name="classes">All classes store in program</param>
+        /// <returns>A string of all information regarding courses stored in classes object</returns>
+        public static string BuildCoursesHomeworkByPriority(AllClasses classes)
         {
-            var output = buildPriorityOutput(Classes.FindMatchingCourses(Priority.High), "High");
-            output += buildPriorityOutput(Classes.FindMatchingCourses(Priority.Medium), "Medium");
-            output += buildPriorityOutput(Classes.FindMatchingCourses(Priority.Low), "Low");
+            var output = buildPriorityOutput(classes.FindMatchingCourses(Priority.High), "High");
+            output += buildPriorityOutput(classes.FindMatchingCourses(Priority.Medium), "Medium");
+            output += buildPriorityOutput(classes.FindMatchingCourses(Priority.Low), "Low");
 
             return output;
         }

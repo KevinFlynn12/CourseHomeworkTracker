@@ -1,31 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using FlynnAssignment1.View.Datatier;
-using FlynnAssignment1.View.Helper;
-using FlynnAssignment1.View.Model;
-using FlynnAssignment1.View.View.Output;
+using FlynnAssignment1.DataTier;
+using FlynnAssignment1.Helper;
+using FlynnAssignment1.Model;
+using FlynnAssignment1.View.Output;
 
-namespace FlynnAssignment1.View.Controller
+namespace FlynnAssignment1.Controller
 {
+    /// <summary>Class created to be controller between model method allClasses and view classes</summary>
     public class HomeworkTrackerController
     {
-        private AllClasses AllClasses;
+        private readonly AllClasses allClasses;
 
 
 
-        /// <summary>Initalizes the HomeWorkTrackerController</summary>
+        /// <summary>Initializes the HomeWorkTrackerController</summary>
         public HomeworkTrackerController()
         {
-            this.AllClasses = new AllClasses();         
+            this.allClasses = new AllClasses();         
         }
 
-        /// <summary>Creates a course for the AllClasses class </summary>
-        /// <param name="courseName"> The name of the course you wish to initalize</param>
+        /// <summary>Creates a course for the allClasses class </summary>
+        /// <param name="courseName"> The name of the course you wish to initialize</param>
         /// <param name="Task">Is the list of task you wish to add the selected Course</param>
         public void CreateACourse(String courseName, ICollection<String> Task)
         {
@@ -37,16 +34,16 @@ namespace FlynnAssignment1.View.Controller
                        course.Add(currentTask);
                    }                 
                }
-               this.AllClasses.Add(course);
+               this.allClasses.Add(course);
         }
 
         /// <summary> Takes the file information from the selected file loads turns it
-        /// into a AllClasses class object and updates each corresponding course information
+        /// into a allClasses class object and updates each corresponding course information
         /// with the loaded csv file</summary>
         /// <param name="fileInfo">the file information</param>
         public void LoadCoursesFromCSVFile(string[] fileInfo)
         {
-            var newClasses = HomeworkTrackerFileReader.ParseHomeWorkTrackerCSVFile(fileInfo);
+            var newClasses = HomeworkTrackerFileReader.ParseHomeWorkTrackerCsvFile(fileInfo);
             foreach (var currentCourse in newClasses)
             {
                 this.UpdateSelectedCoursesTasks(currentCourse.CourseTitle, currentCourse.Tasks, (int)currentCourse.Priority);
@@ -59,14 +56,17 @@ namespace FlynnAssignment1.View.Controller
         /// <returns> a string of information about each of the courses</returns>
         public string WriteCSVFile()
         {
-            return HomeworkTrackerFileWriter.WriteCSVFile(this.AllClasses);
+            return HomeworkTrackerFileWriter.WriteCsvFile(this.allClasses);
         }
 
+        /// <summary>finds task related to course name</summary>
+        /// <param name="courseName"> course name you desire to search</param>
+        /// <returns>collection of task from course that matches the parameter</returns>
         public IList<String> FindMatchingCoursesTasks(string courseName)
         {
             IList<String> selectedTasks = null;
         
-            foreach (Course currentCourse in this.AllClasses)
+            foreach (Course currentCourse in this.allClasses)
             {
                 if (currentCourse.CourseTitle.Equals(courseName))
                 {
@@ -78,7 +78,10 @@ namespace FlynnAssignment1.View.Controller
         }
 
 
-     
+
+        /// <summary>determines color based on priority passed in</summary>
+        /// <param name="selectedPriority">the priority selected</param>
+        /// <returns>color that based on priority</returns>
         public Color DetermineColor(Priority selectedPriority)
         {
             var selectedColor = new Color();
@@ -102,36 +105,46 @@ namespace FlynnAssignment1.View.Controller
 
 
 
+        /// <summary>Calls output to update the its output  </summary>
+        /// <returns>string of new output</returns>
         public String UpdateClassesOutput()
         {
-            return HomeworkTrackerOutput.BuildCoursesHomeworkByPriority(this.AllClasses);
+            return HomeworkTrackerOutput.BuildCoursesHomeworkByPriority(this.allClasses);
         }
 
+        /// <summary>updates course the matches the name by changing the priority and tasks
+        /// to the parameters entered</summary>
+        /// <param name="name">name used to find matching course</param>
+        /// <param name="newTasks">newTask user wishes to add</param>
+        /// <param name="priorityValue">Value that will be converted to a priority</param>
         public void UpdateSelectedCoursesTasks(String name, ICollection<String> newTasks, int priorityValue)
         {
-            foreach (Course currentCourse in this.AllClasses)
+            foreach (Course currentCourse in this.allClasses)
             {
-                this.handleMatchedCourse(name, newTasks, priorityValue, currentCourse);
+                this.CheckForMatchedCourse(name, newTasks, priorityValue, currentCourse);
             }
         }
 
-        private void handleMatchedCourse(string name, ICollection<string> newTasks, int priorityValue, Course currentCourse)
+        private void CheckForMatchedCourse(string name, ICollection<string> newTasks, int priorityValue, Course currentCourse)
         {
             if (currentCourse.CourseTitle.Equals(name))
             {
-                var newPriority = this.convertValueToPriority(priorityValue);
                 if (newTasks != null )
                 {
                     currentCourse.Tasks = (IList<String>) newTasks;
-                    currentCourse.Priority = newPriority;
+                    currentCourse.Priority = PriorityConverter.ConvertValueToPriority(priorityValue);
                 }
             }
         }
 
+        /// <summary>Finds matched course based on name passed in and
+        /// returns matched Courses priority</summary>
+        /// <param name="selectedCourseName">name used to search all courses</param>
+        /// <returns>priority of matched course</returns>
         public Priority FindMatchingCoursesPriority(string selectedCourseName)
         {
             var newPriority = new Priority();
-            foreach (Course currentCourse in this.AllClasses)
+            foreach (Course currentCourse in this.allClasses)
             {
                 if (currentCourse.CourseTitle.Equals(selectedCourseName))
                 {
@@ -145,26 +158,7 @@ namespace FlynnAssignment1.View.Controller
 
 
 
-        private Priority convertValueToPriority(int priority)
-        {
-            
-
-            Priority newPriority;
-            if (priority == (int) Priority.High)
-            {
-                newPriority =  Priority.High;
-            }
-            else if (priority == (int)Priority.Medium)
-            {
-                newPriority =  Priority.Medium;
-            }
-            else
-            {
-                newPriority = Priority.Low;
-            }
-
-            return newPriority;
-        }
+        
 
     }
 }
